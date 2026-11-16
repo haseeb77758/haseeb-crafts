@@ -11,10 +11,10 @@ BASE='/haseeb-crafts/'
 URL='https://haseeb77758.github.io'+BASE
 VERIFY='952w3cYsItd12V8_mYMvQMhhqZai5DPtdN3kej0U_p8'
 META={
- '/':('Haseeb Crafts | Web Development, Motion Graphics & Branding','Haseeb Crafts by Abdul Haseeb: website development, WordPress, motion graphics, video editing and branding. Explore services and discuss your next project.'),
+ '/':('Haseeb Crafts | Abdul Haseeb — Web Design & Creative Studio','Haseeb Crafts is Abdul Haseeb\'s creative studio in Pakistan for website development, WordPress, web apps, motion graphics, video editing and digital branding.'),
  '/about/':('About Abdul Haseeb | Haseeb Crafts Creative Studio','Meet Abdul Haseeb, the creator behind Haseeb Crafts. Explore his approach to websites, motion graphics, video editing, branding and digital tools.'),
  '/services/':('Web, Motion & Design Services | Haseeb Crafts','Explore Haseeb Crafts services: websites, WordPress, motion graphics, video editing, branding, social media design, apps, AI tools and automation.'),
- '/work/':('Website, Branding & Motion Portfolio | Haseeb Crafts','Explore Haseeb Crafts portfolio concepts in website design, brand identity, social campaigns and motion graphics, with clear notes on each creative direction.'),
+ '/work/':('Website Portfolio & Live Projects | Haseeb Crafts','Explore Haseeb Crafts\' curated website portfolio: web design, WordPress, business websites and digital projects. Browse screenshots and visit original project websites.'),
  '/motion/':('Motion Graphics & Video Editing | Haseeb Crafts','Discover motion graphics and video editing by Haseeb Crafts: animated promos, kinetic typography, product reveals, captions and branded visual storytelling.'),
  '/faqs/':('Project & Service FAQs | Haseeb Crafts','Find answers about Haseeb Crafts services, project scope, timelines, revisions and final files before starting a website, design or motion graphics project.'),
  '/contact/':('Contact Abdul Haseeb | Start a Haseeb Crafts Project','Contact Haseeb Crafts by WhatsApp or email to discuss website development, WordPress, motion graphics, video editing, branding and other creative projects.'),
@@ -52,15 +52,17 @@ def build():
   etree.SubElement(head,'title').text=title
   meta(head,'description',desc)
   meta(head,'author','Abdul Haseeb — Haseeb Crafts')
+  meta(head,'geo.region','PK-PB')
+  meta(head,'geo.placename','Rawalpindi, Pakistan')
   meta(head,'google-site-verification',VERIFY)
   meta(head,'robots','noindex,follow' if route=='404' else 'index,follow,max-image-preview:large')
   canonical=URL+(route.strip('/')+'/' if route!='/' and route!='404' else '')
   if route!='404':etree.SubElement(head,'link',rel='canonical',href=canonical)
   for key,value in {'type':'website','site_name':'Haseeb Crafts','locale':'en_US','title':title,'description':desc,'url':canonical,'image':URL+'assets/social-preview.jpg','image:width':'1200','image:height':'630','image:alt':'Haseeb Crafts — Abdul Haseeb and creative studio services'}.items():meta(head,'og:'+key,value,True)
   for key,value in {'card':'summary_large_image','title':title,'description':desc,'image':URL+'assets/social-preview.jpg','image:alt':'Haseeb Crafts creative studio introduction'}.items():meta(head,'twitter:'+key,value)
-  graph=[{'@type':'Organization','@id':URL+'#studio','name':'Haseeb Crafts','url':URL,'email':'hmm4405930@gmail.com','telephone':'+923144405930','founder':{'@id':URL+'#haseeb'}},
-   {'@type':'Person','@id':URL+'#haseeb','name':'Abdul Haseeb','url':URL+'about/','worksFor':{'@id':URL+'#studio'}},
-   {'@type':'WebSite','@id':URL+'#website','url':URL,'name':'Haseeb Crafts','publisher':{'@id':URL+'#studio'}},
+  graph=[{'@type':'Organization','@id':URL+'#studio','name':'Haseeb Crafts','url':URL,'email':'hmm4405930@gmail.com','telephone':'+923144405930','founder':{'@id':URL+'#haseeb'},'description':'Haseeb Crafts is a Pakistan-based creative studio for websites, motion design, editing and digital solutions.','areaServed':{'@type':'Country','name':'Pakistan'}},
+   {'@type':'Person','@id':URL+'#haseeb','name':'Abdul Haseeb','url':URL+'about/','worksFor':{'@id':URL+'#studio'},'jobTitle':'Web Developer and Motion Designer'},
+   {'@type':'WebSite','@id':URL+'#website','url':URL,'name':'Haseeb Crafts','publisher':{'@id':URL+'#studio'},'alternateName':'Haseeb Crafts by Abdul Haseeb','inLanguage':'en'},
    {'@type':'WebPage','@id':canonical+'#webpage','url':canonical,'name':title,'description':desc,'isPartOf':{'@id':URL+'#website'},'about':{'@id':URL+'#studio'},'inLanguage':'en'}]
   if route.startswith('/services/') and route!='/services/':graph.append({'@type':'Service','name':view.xpath('.//h1')[0].text_content().strip(),'description':desc,'url':canonical,'provider':{'@id':URL+'#studio'}})
   if route!='404':etree.SubElement(head,'script',type='application/ld+json').text=json.dumps({'@context':'https://schema.org','@graph':graph},ensure_ascii=False)
