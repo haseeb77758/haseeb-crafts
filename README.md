@@ -1,5 +1,14 @@
 # Haseeb Crafts
 
+## Explore Haseeb Crafts
+
+- [Haseeb Crafts official website](https://haseeb77758.github.io/haseeb-crafts/) — Abdul Haseeb's web development and creative studio.
+- [Haseeb Crafts website development services](https://haseeb77758.github.io/haseeb-crafts/services/website-development/)
+- [WordPress and Elementor services](https://haseeb77758.github.io/haseeb-crafts/services/wordpress-elementor/)
+- [Live website portfolio](https://haseeb77758.github.io/haseeb-crafts/work/)
+- [Motion graphics and video editing](https://haseeb77758.github.io/haseeb-crafts/motion/)
+- [Contact Haseeb Crafts](https://haseeb77758.github.io/haseeb-crafts/contact/)
+
 Live site: https://haseeb77758.github.io/haseeb-crafts/
 
 The site is published as 22 static, independently crawlable pages. Existing `#/…` links redirect to their corresponding real URLs. The Google Search Console verification token is preserved on every generated page.
