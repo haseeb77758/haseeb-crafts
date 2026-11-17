@@ -11,3 +11,13 @@
 #hc-tools .hc-logo-controls .hc-field input[type=color]{min-height:45px;padding:5px}
 @media(max-width:750px){#hc-tools .hc-logo-grid{grid-template-columns:1fr}#hc-tools .hc-logo-controls{grid-template-columns:1fr 1fr}}
 @media(max-width:420px){#hc-tools .hc-logo-controls{grid-template-columns:1fr}}
+
+/* Six selectable independent logo concepts */
+#hc-tools .hc-logo-six{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:8px 0 20px}
+#hc-tools .hc-logo-concept{min-width:0;text-align:center;border:2px solid #d7eadf;background:#fafffc;border-radius:14px;padding:10px 8px;cursor:pointer;color:#104d2e;transition:border-color .2s,transform .2s,box-shadow .2s}
+#hc-tools .hc-logo-concept:hover{transform:translateY(-2px);border-color:#18af67}
+#hc-tools .hc-logo-concept.active,#hc-tools .hc-logo-concept[aria-pressed=true]{border-color:#04b968;box-shadow:0 0 0 3px rgba(11,200,104,.1)}
+#hc-tools .hc-logo-concept-art{display:grid;place-items:center;height:110px;background:#fff;border-radius:10px;padding:6px;margin-bottom:8px;overflow:hidden}
+#hc-tools .hc-logo-concept-art svg{width:100%;height:100%;max-width:140px;max-height:98px;object-fit:contain}
+#hc-tools .hc-logo-concept strong{font-size:12px}
+@media(max-width:560px){#hc-tools .hc-logo-six{grid-template-columns:repeat(2,minmax(0,1fr))}}
