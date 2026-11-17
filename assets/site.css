@@ -893,3 +893,20 @@ h1[tabindex="-1"]:focus,main:focus{outline:none}
 @media(prefers-reduced-motion:reduce){.hc-sc-actions a,.hc-sc-arrow,.hc-sc-dots button{transition:none!important}}
 
 .view[hidden]{display:none!important}
+
+/* Mobile vertical rhythm: preserve desktop layout and sticky scroll reveals. */
+@media (max-width: 760px) {
+  .h3-hero { min-height: 0; padding-top: clamp(88px, 11svh, 112px); padding-bottom: 22px; }
+  .h3-st { height: 145svh; }
+  .h3-st-in { height: 100svh; padding-inline: 18px; }
+  .h3-st p { font-size: clamp(1.65rem, 6.7vw, 2.7rem); line-height: 1.12; }
+  .h3-in { height: 135svh; }
+  .h3-in-st { height: 100svh; gap: 16px; padding: 64px 16px 22px; box-sizing: border-box; }
+  .h3-in-lab { font-size: clamp(1.55rem, 6vw, 2.2rem); }
+  .h3-in-lab svg { width: 34px; height: 34px; }
+  .h3-vf { max-width: min(92vw, 520px); }
+}
+@media (max-width: 380px) {
+  .h3-st p { font-size: 6.4vw; }
+  .h3-in-st { padding-inline: 12px; }
+}
