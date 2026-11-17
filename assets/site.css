@@ -911,16 +911,14 @@ h1[tabindex="-1"]:focus,main:focus{outline:none}
   .h3-in-st { padding-inline: 12px; }
 }
 
-/* Mobile compact flow v2: remove scroll-spacer sections entirely. */
+/* Mobile scroll animation restored with shorter, controlled sticky travel. */
 @media (max-width:760px) {
-  .h3-st { height:auto !important; min-height:0 !important; padding:36px 0 28px; }
-  .h3-st-in { position:relative !important; top:auto !important; height:auto !important; min-height:0 !important; display:block; padding:0 18px; }
-  .h3-st p { max-width:24ch; margin:0 auto; font-size:clamp(1.55rem,6.3vw,2.45rem); line-height:1.13; }
-  .h3-st .sw { opacity:1 !important; }
-  .h3-st .kk3 { display:none; }
-  .h3-in { height:auto !important; min-height:0 !important; padding:32px 0 44px; }
-  .h3-in-st { position:relative !important; top:auto !important; height:auto !important; min-height:0 !important; overflow:visible; justify-content:flex-start; gap:20px; padding:0 16px; }
-  .h3-in-lab { opacity:1 !important; text-align:center; justify-content:center; }
-  .h3-vf { width:min(92vw,520px) !important; max-width:100%; transform:none !important; margin:0 auto; }
-  .h3-vf img,.h3-vf video { max-width:100%; }
+ .h3-st {height:165svh;min-height:0;padding:0;}
+ .h3-st-in {position:sticky;top:0;height:100svh;min-height:0;display:grid;place-items:center;padding:0 18px;}
+ .h3-st p {max-width:24ch;margin:0 auto;font-size:clamp(1.55rem,6.3vw,2.45rem);line-height:1.13;}
+ .h3-st .sw {opacity:.16;}
+ .h3-in {height:155svh;min-height:0;padding:0;}
+ .h3-in-st {position:sticky;top:0;height:100svh;min-height:0;overflow:hidden;justify-content:center;gap:18px;padding:48px 16px 18px;box-sizing:border-box;}
+ .h3-in-lab {text-align:center;justify-content:center;}
+ .h3-vf {max-width:min(92vw,520px);margin:0 auto;}
 }
