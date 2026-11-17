@@ -1,0 +1,11 @@
+/* Haseeb Crafts - lightweight consistent page intro */
+#hc-intro-loader{position:fixed;inset:0;z-index:2147483646;display:grid;place-items:center;background:#030503;opacity:1;visibility:visible;transition:opacity .32s ease,visibility .32s ease;contain:layout paint}
+#hc-intro-loader.hc-exit{opacity:0;visibility:hidden;pointer-events:none}
+.hc-intro-inner{width:min(78vw,390px);display:grid;place-items:center}
+.hc-intro-art{width:100%;aspect-ratio:1;display:grid;place-items:center}
+.hc-intro-art img{display:block;width:100%;height:100%;object-fit:contain}
+@media(max-width:600px){.hc-intro-inner{width:min(82vw,310px)}}
+@media(prefers-reduced-motion:reduce){#hc-intro-loader{transition:none!important}}
+/* Header logo is static and simple */
+.hd-logo{background:transparent!important;overflow:hidden;border-radius:16px}
+.hd-logo img{display:block;width:100%;height:100%;object-fit:contain;animation:none!important;transition:none!important;transform:none!important}
