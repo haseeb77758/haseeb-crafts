@@ -914,3 +914,7 @@ h1[tabindex="-1"]:focus,main:focus{outline:none}
  .h3-st .sw{opacity:1}
  .h3-in-lab{opacity:1}
 }
+
+/* Keep Try It Live in the header CTA, never as a regular menu link. */
+.hd-nav a[href*="try-it-live"],.menu nav a[href*="try-it-live"],.ft3-links a[href*="try-it-live"]{display:none!important}
+.hd-nav li:has(>a[href*="try-it-live"]),.menu nav li:has(>a[href*="try-it-live"]){display:none!important}
