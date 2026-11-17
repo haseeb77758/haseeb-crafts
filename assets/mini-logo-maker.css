@@ -1,0 +1,13 @@
+
+/* Mini Logo Maker — Haseeb Crafts green design */
+#hc-tools .hc-logo-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(270px,1fr);gap:19px;align-items:start}
+#hc-tools .hc-logo-controls{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#hc-tools .hc-logo-controls .hc-field.wide{grid-column:1/-1}
+#hc-tools .hc-logo-previewbox{background:repeating-conic-gradient(#edf3ee 0% 25%,#fff 0% 50%) 50%/22px 22px;border:1px solid #b7d9c4;border-radius:16px;min-height:258px;display:grid;place-items:center;padding:18px;overflow:hidden}
+#hc-tools .hc-logo-previewbox svg{width:100%;height:auto;max-height:240px;display:block;filter:drop-shadow(0 8px 18px rgba(5,45,24,.12))}
+#hc-tools .hc-logo-preview-title{font-size:12px;font-weight:800;color:#0e5732;margin:4px 0 10px}
+#hc-tools .hc-logo-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+#hc-tools .hc-logo-note{font-size:11px;color:#5b7466;line-height:1.6;margin-top:12px}
+#hc-tools .hc-logo-controls .hc-field input[type=color]{min-height:45px;padding:5px}
+@media(max-width:750px){#hc-tools .hc-logo-grid{grid-template-columns:1fr}#hc-tools .hc-logo-controls{grid-template-columns:1fr 1fr}}
+@media(max-width:420px){#hc-tools .hc-logo-controls{grid-template-columns:1fr}}
