@@ -645,7 +645,7 @@ h3{color:var(--n);font-weight:700}
 /* ---------- header: bar at the top, floating pill after scrolling ---------- */
 .hd{position:fixed;top:0;left:0;right:0;z-index:90;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(18px,3vw,44px);gap:20px;pointer-events:none}
 .hd>*{pointer-events:auto}
-.hd-logo{display:flex;align-items:center;justify-content:center;width:76px;height:76px;flex:none;overflow:hidden;background:#000;transition:opacity .35s,transform .35s}.hd-logo img{display:block;width:100%;height:100%;object-fit:contain}.hd-logo:focus-visible{outline:2px solid #49ff00;outline-offset:4px}@media(max-width:480px){.hd-logo{width:58px;height:58px}}
+.hd-logo{display:flex;align-items:center;justify-content:center;width:76px;height:76px;flex:none;overflow:hidden;border-radius:18px;background:transparent;transition:opacity .35s,transform .35s}.hd-logo img{display:block;width:100%;height:100%;object-fit:contain}.hd-logo:focus-visible{outline:2px solid #49ff00;outline-offset:4px}@media(max-width:480px){.hd-logo{width:58px;height:58px}}
 .hd-nav ul{display:flex;gap:clamp(14px,2.2vw,34px);list-style:none;margin:0;padding:0}
 .hd-nav a{color:#fff;font:700 .72rem var(--head);letter-spacing:.14em;text-transform:uppercase;padding:8px 2px;position:relative}
 .hd-nav a::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:1.5px;background:var(--gold2);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
