@@ -810,3 +810,16 @@ if(!document.documentElement.classList.contains('ready')&&window.HC_hydrateAll){
   if('ResizeObserver'in window)new ResizeObserver(solve).observe(stage);else window.addEventListener('resize',solve);
   solve();
 })();
+
+// HC navigation cleanup: Try It Live belongs in the header CTA only.
+(function(){
+  function cleanTryLiveMenus(){
+    document.querySelectorAll('.hd-nav a[href*="try-it-live"], .menu nav a[href*="try-it-live"], .ft3-links a[href*="try-it-live"]').forEach(function(link){
+      var item=link.closest('li');
+      if(item && (item.closest('.hd-nav') || item.closest('.menu nav'))) item.remove();
+      else link.remove();
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',cleanTryLiveMenus,{once:true});
+  else cleanTryLiveMenus();
+})();
