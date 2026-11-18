@@ -1,0 +1,14 @@
+/* Cinematic motion inspired by supplied video; brand emerald/white, no layout shifts. */
+#hc-film-progress{position:fixed;top:0;left:0;width:100%;height:3px;z-index:99999;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,#43c87b,#a5f5b8);pointer-events:none}
+.view[data-route="/"] .hc-film-reveal{opacity:0;transform:translate3d(0,42px,0);filter:blur(7px);transition:opacity .85s ease,transform .95s cubic-bezier(.2,.75,.2,1),filter .85s ease;transition-delay:var(--hc-reveal-delay,0ms)}
+.view[data-route="/"] .hc-film-reveal.hc-film-visible{opacity:1;transform:translate3d(0,0,0);filter:blur(0)}
+.view[data-route="/"] .h3-hero .h3-h1{transform:translate3d(0,calc(var(--hc-film-progress,0) * -48px),0);opacity:calc(1 - var(--hc-film-progress,0) * .6);transition:opacity .12s linear}
+.view[data-route="/"] .h3-hero .h3-cut{transform:translate3d(0,calc(var(--hc-film-progress,0) * 70px),0) scale(calc(1 + var(--hc-film-progress,0) * .09));will-change:transform}
+.view[data-route="/"] .h3-hero .h3-note{transform:translate3d(0,calc(var(--hc-film-progress,0) * -20px),0)}
+.view[data-route="/"] .h3-vf,.view[data-route="/"] .h3-ab-ph,.view[data-route="/"] .h3-wk a{overflow:hidden}
+.view[data-route="/"] .h3-vf img,.view[data-route="/"] .h3-ab-ph img{transition:transform 1s cubic-bezier(.2,.75,.2,1),filter 1s ease}
+.view[data-route="/"] .h3-vf:hover img,.view[data-route="/"] .h3-ab-ph:hover img{transform:scale(1.055);filter:saturate(1.12)}
+.view[data-route="/"] .hc-sc-card img{transition:transform .85s cubic-bezier(.2,.8,.2,1),filter .65s ease}
+.view[data-route="/"] .hc-sc-card:hover img{transform:scale(1.07);filter:saturate(1.1)}
+.view[data-route="/"] .hc-sc-card{transition:box-shadow .45s ease, border-color .45s ease!important}
+@media(prefers-reduced-motion:reduce){.view[data-route="/"] .hc-film-reveal{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}.view[data-route="/"] .h3-hero .h3-h1,.view[data-route="/"] .h3-hero .h3-cut,.view[data-route="/"] .h3-hero .h3-note{transform:none!important;opacity:1!important}.view[data-route="/"] .hc-sc-card img{transition:none!important}#hc-film-progress{display:none}}
