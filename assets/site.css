@@ -965,3 +965,10 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
 .hc-sc-card{transform-style:flat!important;backface-visibility:visible!important;transition:box-shadow .3s ease}
 .hc-sc-card:hover{box-shadow:0 18px 42px rgba(0,90,65,.3)}
 @media(max-width:760px){.hc-sc-stage{margin-top:12px!important}}
+
+/* Service carousel: single horizontal row, same baseline, swipe and arrows. */
+#hc-sc-stage{perspective:none!important;overflow:hidden!important;touch-action:pan-y}
+#hc-sc-ring{transform-style:flat!important}
+#hc-sc-ring>.hc-sc-card{top:50%!important;left:50%!important;transform-style:flat!important;backface-visibility:visible!important}
+#hc-sc-ring>.hc-sc-card::after{animation:hc-glow-orbit 3s linear infinite}
+@media(max-width:760px){#hc-sc-stage{width:100%!important}#hc-sc-ring>.hc-sc-card{border-radius:20px}}
