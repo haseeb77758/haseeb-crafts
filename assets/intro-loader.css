@@ -1,5 +1,5 @@
 /* Haseeb Crafts - lightweight consistent page intro */
-#hc-intro-loader{position:fixed;inset:0;z-index:2147483646;display:grid;place-items:center;background:#11212D;opacity:1;visibility:visible;transition:opacity .32s ease,visibility .32s ease;contain:layout paint}
+#hc-intro-loader{position:fixed;inset:0;z-index:2147483646;display:grid;place-items:center;background:#17365B;opacity:1;visibility:visible;transition:opacity .32s ease,visibility .32s ease;contain:layout paint}
 #hc-intro-loader.hc-exit{opacity:0;visibility:hidden;pointer-events:none}
 .hc-intro-inner{width:min(78vw,390px);display:grid;place-items:center}
 .hc-intro-art{width:100%;aspect-ratio:1;display:grid;place-items:center}
