@@ -972,3 +972,12 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
 #hc-sc-ring>.hc-sc-card{top:50%!important;left:50%!important;transform-style:flat!important;backface-visibility:visible!important}
 #hc-sc-ring>.hc-sc-card::after{animation:hc-glow-orbit 3s linear infinite}
 @media(max-width:760px){#hc-sc-stage{width:100%!important}#hc-sc-ring>.hc-sc-card{border-radius:20px}}
+
+/* Native one-line swipe rail overrides obsolete 3D positioning. */
+#hc-sc-stage{height:auto!important;min-height:0!important;overflow:visible!important;perspective:none!important;cursor:auto!important;width:100%!important}
+#hc-sc-ring{position:relative!important;inset:auto!important;display:flex!important;flex-flow:row nowrap!important;align-items:stretch!important;gap:16px!important;overflow-x:auto!important;overflow-y:hidden!important;scroll-snap-type:x mandatory!important;scroll-padding-inline:calc((100% - min(74vw,280px))/2);padding:18px max(16px,calc((100% - min(74vw,280px))/2)) 26px!important;box-sizing:border-box!important;transform:none!important;transform-style:flat!important;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;touch-action:pan-x pan-y}
+#hc-sc-ring::-webkit-scrollbar{display:none}
+#hc-sc-ring>.hc-sc-card{position:relative!important;top:auto!important;left:auto!important;inset:auto!important;flex:0 0 min(74vw,280px)!important;width:min(74vw,280px)!important;height:370px!important;margin:0!important;transform:none!important;opacity:1!important;visibility:visible!important;scroll-snap-align:center!important;scroll-snap-stop:always!important;perspective:none!important;z-index:auto!important;pointer-events:auto!important}
+#hc-sc-ring>.hc-sc-card[aria-pressed="true"]{box-shadow:0 14px 32px rgba(2,79,49,.3)}
+@media(min-width:900px){#hc-sc-ring{scroll-padding-inline:calc((100% - 280px)/2);padding-inline:max(16px,calc((100% - 280px)/2))!important}#hc-sc-ring>.hc-sc-card{flex-basis:280px!important;width:280px!important;height:380px!important}}
+@media(prefers-reduced-motion:reduce){#hc-sc-ring{scroll-behavior:auto!important}}
