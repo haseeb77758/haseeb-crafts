@@ -915,9 +915,9 @@ h1[tabindex="-1"]:focus,main:focus{outline:none}
  .h3-in-lab{opacity:1}
 }
 
-/* Keep Try It Live in the header CTA, never as a regular menu link. */
-.hd-nav a[href*="try-it-live"],.menu nav a[href*="try-it-live"],.ft3-links a[href*="try-it-live"]{display:none!important}
-.hd-nav li:has(>a[href*="try-it-live"]),.menu nav li:has(>a[href*="try-it-live"]){display:none!important}
+/* Try It Live is visible in the mobile menu only. */
+@media(max-width:980px){.menu nav .hc-menu-live{display:list-item!important}.menu nav .hc-menu-live a{display:block!important}}
+@media(min-width:981px){.menu nav .hc-menu-live{display:none!important}}
 
 /* Smooth anchor scrolling across Haseeb Crafts; preserve sticky header clearance. */
 html{scroll-behavior:smooth;scroll-padding-top:80px}
