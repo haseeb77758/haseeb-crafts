@@ -755,59 +755,38 @@ window.HC_VIDEOS = { client: [], user: [], showreel: "/haseeb-crafts/videos/show
 
 if(!document.documentElement.classList.contains('ready')&&window.HC_hydrateAll){window.HC_hydrateAll()}
 
-/* HASEEB CRAFTS: native single-row service carousel, touch and mouse friendly. */
+/* HC service carousel: continuous seamless marquee, manual swipe and arrows. */
 (function(){
- 'use strict';
- var root=document.getElementById('sv-home'),stage=document.getElementById('hc-sc-stage');
- if(!root||!stage)return;
- var ring=document.getElementById('hc-sc-ring'),cards=Array.from(ring.querySelectorAll('[data-hc-card]'));
- var dotsBox=document.getElementById('hc-sc-dots');
- var cat=document.getElementById('hc-sc-category'),title=document.getElementById('hc-sc-title'),desc=document.getElementById('hc-sc-desc');
- var more=document.getElementById('hc-sc-more'),discuss=document.getElementById('hc-sc-discuss');
- var data=[{"name":"Website Development","description":"Responsive websites, landing pages and modern digital experiences.","category":"Web Design","details":"/haseeb-crafts/services/website-development/","contact":"website-development"},{"name":"WordPress & Elementor","description":"Editable websites, custom Elementor layouts and WordPress setups.","category":"WordPress","details":"/haseeb-crafts/services/wordpress-elementor/","contact":"wordpress-elementor"},{"name":"Motion Graphics","description":"Cinematic animated promos, typography, explainers and branded visuals.","category":"Motion Design","details":"/haseeb-crafts/services/motion-graphics/","contact":"motion-graphics"},{"name":"Video Editing","description":"Polished edits, motion titles, captions and social-first videos.","category":"Video Production","details":"/haseeb-crafts/services/video-editing/","contact":"video-editing"},{"name":"Branding & Identity","description":"Memorable logos, visual identities, posters and graphic design.","category":"Brand Design","details":"/haseeb-crafts/services/branding-identity/","contact":"branding-identity"},{"name":"Social Media Design","description":"Content creatives, campaign visuals, reels covers and templates.","category":"Social Creative","details":"/haseeb-crafts/services/social-media-design/","contact":"social-media-design"},{"name":"Chrome Extensions","description":"Custom browser tools to simplify tasks and improve workflows.","category":"Browser Tools","details":"/haseeb-crafts/services/?to=services&card=6","contact":"chrome-extensions"},{"name":"Web Apps & Dashboards","description":"Interactive web applications, admin panels and tailored interfaces.","category":"Applications","details":"/haseeb-crafts/services/?to=services&card=7","contact":"web-apps"},{"name":"AI Chatbots & Agents","description":"Chat interfaces, AI assistants and voice-driven workflow concepts.","category":"AI Solutions","details":"/haseeb-crafts/services/?to=services&card=8","contact":"ai-assistants"},{"name":"Desktop Software","description":"Windows utilities, productive desktop tools and app concepts.","category":"Desktop Apps","details":"/haseeb-crafts/services/?to=services&card=9","contact":"desktop-software"},{"name":"Automation & Integrations","description":"Connect websites, forms, spreadsheets, alerts and business workflows.","category":"Automation","details":"/haseeb-crafts/services/?to=services&card=10","contact":"automation"},{"name":"E-commerce & WooCommerce","description":"Online stores, product experiences and WooCommerce solutions.","category":"E-commerce","details":"/haseeb-crafts/services/?to=services&card=11","contact":"ecommerce"}];
- var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
- var active=0,dots=[],n=cards.length,rail=[],settleTimer=null,autoTimer=null;
- // Clone complete sets on both sides so the final card wraps seamlessly to the first.
- cards.forEach(function(card){var clone=card.cloneNode(true);clone.removeAttribute('id');clone.setAttribute('aria-hidden','true');clone.tabIndex=-1;ring.appendChild(clone)});
- var before=document.createDocumentFragment();
- cards.forEach(function(card){var clone=card.cloneNode(true);clone.removeAttribute('id');clone.setAttribute('aria-hidden','true');clone.tabIndex=-1;before.appendChild(clone)});
- ring.insertBefore(before,ring.firstChild);
- rail=Array.from(ring.querySelectorAll('[data-hc-card]'));
- function offset(el){return el.offsetLeft-(ring.clientWidth-el.offsetWidth)/2}
- function move(index,smooth){ring.scrollTo({left:offset(rail[index]),behavior:smooth&&!reduce?'smooth':'instant'})}
- function display(i){active=(i%n+n)%n;var item=data[active];
-   cat.textContent=item.category;title.textContent=item.name;desc.textContent=item.description;
-   more.href=item.details;discuss.href='/haseeb-crafts/contact/?service='+encodeURIComponent(item.contact)+'&to=start-project';
-   rail.forEach(function(el){el.setAttribute('aria-pressed',String(Number(el.dataset.hcCard)===active))});
-   dots.forEach(function(el,j){el.classList.toggle('on',j===active);el.setAttribute('aria-current',String(j===active))});
- }
- function nearestIndex(){var center=ring.getBoundingClientRect().left+ring.clientWidth/2,best=n,dist=Infinity;
-   rail.forEach(function(el,i){var b=el.getBoundingClientRect(),d=Math.abs(b.left+b.width/2-center);if(d<dist){dist=d;best=i}});
-   return best;
- }
- function jump(i){var current=nearestIndex(),candidates=[i,i+n,i+2*n],best=candidates[0];
-   candidates.forEach(function(v){if(Math.abs(v-current)<Math.abs(best-current))best=v});
-   display(i);move(best,true);restartAuto();
- }
- function step(dir){var next=nearestIndex()+dir;next=Math.max(0,Math.min(rail.length-1,next));display(Number(rail[next].dataset.hcCard));move(next,true);restartAuto()}
- data.forEach(function(item,i){var dot=document.createElement('button');dot.type='button';dot.setAttribute('aria-label','Show '+item.name);dot.addEventListener('click',function(){jump(i)});dotsBox.appendChild(dot);dots.push(dot)});
- rail.forEach(function(el){el.addEventListener('click',function(){jump(Number(el.dataset.hcCard))})});
- document.getElementById('hc-sc-prev').addEventListener('click',function(){step(-1)});
- document.getElementById('hc-sc-next').addEventListener('click',function(){step(1)});
- stage.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();step(e.key==='ArrowRight'?1:-1)}});
- function settle(){var i=nearestIndex();display(Number(rail[i].dataset.hcCard));
-   if(i<n||i>=2*n){move(i<n?i+n:i-n,false)}
- }
- ring.addEventListener('scroll',function(){clearTimeout(settleTimer);settleTimer=setTimeout(settle,180)},{passive:true});
- function restartAuto(){if(autoTimer)clearInterval(autoTimer);if(reduce)return;
-   autoTimer=setInterval(function(){if(document.hidden||!root.getBoundingClientRect().height)return;step(1)},2800);
- }
- ring.addEventListener('pointerdown',function(){if(autoTimer)clearInterval(autoTimer)},{passive:true});
- ring.addEventListener('pointerup',restartAuto,{passive:true});
- ring.addEventListener('touchend',restartAuto,{passive:true});
- ring.addEventListener('mouseenter',function(){if(autoTimer)clearInterval(autoTimer)});
- ring.addEventListener('mouseleave',restartAuto);
- display(0);
- requestAnimationFrame(function(){move(n,false);restartAuto()});
- window.addEventListener('resize',function(){move(n+active,false)});
+'use strict';
+var root=document.getElementById('sv-home'),rail=document.getElementById('hc-sc-ring');
+if(!root||!rail)return;
+var originals=Array.from(rail.querySelectorAll('[data-hc-card]'));
+var data=[{"name":"Website Development","description":"Responsive websites, landing pages and modern digital experiences.","category":"Web Design","details":"/haseeb-crafts/services/website-development/","contact":"website-development"},{"name":"WordPress & Elementor","description":"Editable websites, custom Elementor layouts and WordPress setups.","category":"WordPress","details":"/haseeb-crafts/services/wordpress-elementor/","contact":"wordpress-elementor"},{"name":"Motion Graphics","description":"Cinematic animated promos, typography, explainers and branded visuals.","category":"Motion Design","details":"/haseeb-crafts/services/motion-graphics/","contact":"motion-graphics"},{"name":"Video Editing","description":"Polished edits, motion titles, captions and social-first videos.","category":"Video Production","details":"/haseeb-crafts/services/video-editing/","contact":"video-editing"},{"name":"Branding & Identity","description":"Memorable logos, visual identities, posters and graphic design.","category":"Brand Design","details":"/haseeb-crafts/services/branding-identity/","contact":"branding-identity"},{"name":"Social Media Design","description":"Content creatives, campaign visuals, reels covers and templates.","category":"Social Creative","details":"/haseeb-crafts/services/social-media-design/","contact":"social-media-design"},{"name":"Chrome Extensions","description":"Custom browser tools to simplify tasks and improve workflows.","category":"Browser Tools","details":"/haseeb-crafts/services/?to=services&card=6","contact":"chrome-extensions"},{"name":"Web Apps & Dashboards","description":"Interactive web applications, admin panels and tailored interfaces.","category":"Applications","details":"/haseeb-crafts/services/?to=services&card=7","contact":"web-apps"},{"name":"AI Chatbots & Agents","description":"Chat interfaces, AI assistants and voice-driven workflow concepts.","category":"AI Solutions","details":"/haseeb-crafts/services/?to=services&card=8","contact":"ai-assistants"},{"name":"Desktop Software","description":"Windows utilities, productive desktop tools and app concepts.","category":"Desktop Apps","details":"/haseeb-crafts/services/?to=services&card=9","contact":"desktop-software"},{"name":"Automation & Integrations","description":"Connect websites, forms, spreadsheets, alerts and business workflows.","category":"Automation","details":"/haseeb-crafts/services/?to=services&card=10","contact":"automation"},{"name":"E-commerce & WooCommerce","description":"Online stores, product experiences and WooCommerce solutions.","category":"E-commerce","details":"/haseeb-crafts/services/?to=services&card=11","contact":"ecommerce"}];
+var n=originals.length;if(!n)return;
+var cat=document.getElementById('hc-sc-category'),title=document.getElementById('hc-sc-title'),desc=document.getElementById('hc-sc-desc'),more=document.getElementById('hc-sc-more'),discuss=document.getElementById('hc-sc-discuss'),dotsBox=document.getElementById('hc-sc-dots');
+var prev=document.getElementById('hc-sc-prev'),next=document.getElementById('hc-sc-next');
+var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var pauseUntil=0,last=0,lastSelected=-1,cycle=0;
+var fragment=document.createDocumentFragment();
+originals.forEach(function(el){var copy=el.cloneNode(true);copy.setAttribute('aria-hidden','true');copy.tabIndex=-1;fragment.appendChild(copy)});
+rail.appendChild(fragment);
+var items=Array.from(rail.querySelectorAll('[data-hc-card]'));
+function size(){cycle=items[n].offsetLeft-items[0].offsetLeft}
+function normalize(){if(!cycle)return;while(rail.scrollLeft>=cycle)rail.scrollLeft-=cycle;while(rail.scrollLeft<0)rail.scrollLeft+=cycle}
+function centerIndex(){var center=rail.getBoundingClientRect().left+rail.clientWidth/2,best=0,dist=Infinity;items.forEach(function(el,i){var r=el.getBoundingClientRect(),d=Math.abs(r.left+r.width/2-center);if(d<dist){dist=d;best=i%n}});return best}
+var dots=[];
+data.forEach(function(d,i){var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Show '+d.name);b.addEventListener('click',function(){go(i)});dotsBox.appendChild(b);dots.push(b)});
+function select(i){i=(i+n)%n;if(i===lastSelected)return;lastSelected=i;var d=data[i];cat.textContent=d.category;title.textContent=d.name;desc.textContent=d.description;more.href=d.details;discuss.href='/haseeb-crafts/contact/?service='+encodeURIComponent(d.contact)+'&to=start-project';dots.forEach(function(b,j){b.classList.toggle('on',i===j);b.setAttribute('aria-current',String(i===j))});items.forEach(function(el){el.setAttribute('aria-pressed',String(Number(el.dataset.hcCard)===i))})}
+function go(i){size();normalize();var target=items[i].offsetLeft-items[0].offsetLeft;var now=rail.scrollLeft;var options=[target-cycle,target,target+cycle];var best=options.reduce(function(a,b){return Math.abs(b-now)<Math.abs(a-now)?b:a});pauseUntil=performance.now()+3200;rail.scrollBy({left:best-now,behavior:reduce?'auto':'smooth'});select(i)}
+function step(dir){go((centerIndex()+dir+n)%n)}
+prev.addEventListener('click',function(){step(-1)});
+next.addEventListener('click',function(){step(1)});
+items.forEach(function(el){el.addEventListener('click',function(){go(Number(el.dataset.hcCard))})});
+rail.addEventListener('pointerdown',function(){pauseUntil=performance.now()+4500},{passive:true});
+rail.addEventListener('touchstart',function(){pauseUntil=performance.now()+4500},{passive:true});
+rail.addEventListener('scroll',function(){select(centerIndex())},{passive:true});
+root.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();step(e.key==='ArrowRight'?1:-1)}});
+function tick(now){if(last===0)last=now;var dt=Math.min(50,now-last);last=now;if(!reduce&&now>pauseUntil&&!document.hidden&&root.getBoundingClientRect().bottom>0&&root.getBoundingClientRect().top<innerHeight){rail.scrollLeft+=dt*.045;normalize();select(centerIndex())}requestAnimationFrame(tick)}
+size();select(0);requestAnimationFrame(tick);
+window.addEventListener('resize',function(){size();normalize()},{passive:true});
 })();
