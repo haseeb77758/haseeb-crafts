@@ -922,3 +922,25 @@ h1[tabindex="-1"]:focus,main:focus{outline:none}
 /* Smooth anchor scrolling across Haseeb Crafts; preserve sticky header clearance. */
 html{scroll-behavior:smooth;scroll-padding-top:80px}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Reference-inspired rotating neon edge: selective, hover/focus only. */
+@property --hc-edge-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
+@keyframes hc-edge-spin{to{--hc-edge-angle:360deg}}
+@supports (background:conic-gradient(from 0deg,red,blue)){
+  .svc-card,.hc-extra-card{position:relative;isolation:isolate}
+  .svc-card::after,.hc-extra-card::after{
+    content:"";position:absolute;inset:0;border:2px solid transparent;
+    border-radius:inherit;pointer-events:none;z-index:3;opacity:0;
+    background:conic-gradient(from var(--hc-edge-angle),transparent 0deg,transparent 240deg,#00d99a 286deg,#6beaff 315deg,transparent 345deg) border-box;
+    -webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;
+    transition:opacity .25s ease;
+  }
+  .svc-card:hover::after,.svc-card:focus-visible::after,
+  .hc-extra-card:hover::after,.hc-extra-card:focus-within::after{
+    opacity:1;animation:hc-edge-spin 3s linear infinite;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .svc-card::after,.hc-extra-card::after{animation:none!important;opacity:0!important}
+}
