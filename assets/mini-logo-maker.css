@@ -3,20 +3,20 @@
 #hc-tools .hc-logo-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(270px,1fr);gap:19px;align-items:start}
 #hc-tools .hc-logo-controls{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 #hc-tools .hc-logo-controls .hc-field.wide{grid-column:1/-1}
-#hc-tools .hc-logo-previewbox{background:repeating-conic-gradient(#edf3ee 0% 25%,#fff 0% 50%) 50%/22px 22px;border:1px solid #9BA8AB;border-radius:16px;min-height:258px;display:grid;place-items:center;padding:18px;overflow:hidden}
+#hc-tools .hc-logo-previewbox{background:repeating-conic-gradient(#edf3ee 0% 25%,#fff 0% 50%) 50%/22px 22px;border:1px solid #66CCFF;border-radius:16px;min-height:258px;display:grid;place-items:center;padding:18px;overflow:hidden}
 #hc-tools .hc-logo-previewbox svg{width:100%;height:auto;max-height:240px;display:block;filter:drop-shadow(0 8px 18px rgba(5,45,24,.12))}
-#hc-tools .hc-logo-preview-title{font-size:12px;font-weight:800;color:#253745;margin:4px 0 10px}
+#hc-tools .hc-logo-preview-title{font-size:12px;font-weight:800;color:#1E90FF;margin:4px 0 10px}
 #hc-tools .hc-logo-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
-#hc-tools .hc-logo-note{font-size:11px;color:#4A5C6A;line-height:1.6;margin-top:12px}
+#hc-tools .hc-logo-note{font-size:11px;color:#286BAA;line-height:1.6;margin-top:12px}
 #hc-tools .hc-logo-controls .hc-field input[type=color]{min-height:45px;padding:5px}
 @media(max-width:750px){#hc-tools .hc-logo-grid{grid-template-columns:1fr}#hc-tools .hc-logo-controls{grid-template-columns:1fr 1fr}}
 @media(max-width:420px){#hc-tools .hc-logo-controls{grid-template-columns:1fr}}
 
 /* Six selectable independent logo concepts */
 #hc-tools .hc-logo-six{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:8px 0 20px}
-#hc-tools .hc-logo-concept{min-width:0;text-align:center;border:2px solid #CCD0CF;background:#fafffc;border-radius:14px;padding:10px 8px;cursor:pointer;color:#253745;transition:border-color .2s,transform .2s,box-shadow .2s}
-#hc-tools .hc-logo-concept:hover{transform:translateY(-2px);border-color:#4A5C6A}
-#hc-tools .hc-logo-concept.active,#hc-tools .hc-logo-concept[aria-pressed=true]{border-color:#4A5C6A;box-shadow:0 0 0 3px rgba(11,200,104,.1)}
+#hc-tools .hc-logo-concept{min-width:0;text-align:center;border:2px solid #F0F8FF;background:#fafffc;border-radius:14px;padding:10px 8px;cursor:pointer;color:#1E90FF;transition:border-color .2s,transform .2s,box-shadow .2s}
+#hc-tools .hc-logo-concept:hover{transform:translateY(-2px);border-color:#286BAA}
+#hc-tools .hc-logo-concept.active,#hc-tools .hc-logo-concept[aria-pressed=true]{border-color:#286BAA;box-shadow:0 0 0 3px rgba(11,200,104,.1)}
 #hc-tools .hc-logo-concept-art{display:grid;place-items:center;height:110px;background:#fff;border-radius:10px;padding:6px;margin-bottom:8px;overflow:hidden}
 #hc-tools .hc-logo-concept-art svg{width:100%;height:100%;max-width:140px;max-height:98px;object-fit:contain}
 #hc-tools .hc-logo-concept strong{font-size:12px}
