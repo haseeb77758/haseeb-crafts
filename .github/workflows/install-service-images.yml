@@ -1,0 +1,49 @@
+name: Install realistic Haseeb Crafts service images
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/install-service-images.yml'
+permissions:
+  contents: write
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Extract approved realistic service images and update carousel
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import zipfile,re
+          archive=Path('haseeb-crafts-12-realistic-images.zip')
+          assert archive.exists(), 'Uploaded ZIP is missing'
+          names=['01-website-development.webp','02-video-editing.webp','03-graphic-design.webp','04-social-media.webp','05-ecommerce.webp','06-mobile-app.webp','07-custom-web.webp','08-video-shoots.webp','09-brand-identity.webp','10-seo.webp','11-youtube-shorts.webp','12-creative-studio.webp']
+          with zipfile.ZipFile(archive) as z:
+              for i,name in enumerate(names,1):
+                  matches=[p for p in z.namelist() if Path(p).name==name]
+                  assert len(matches)==1, f'Missing {name}'
+                  Path(f'assets/hc-realistic-{i:02}.webp').write_bytes(z.read(matches[0]))
+          html=Path('index.html')
+          s=html.read_text()
+          start=s.index('id="hc-sc-stage"')
+          end=s.index('</div></div>',start)
+          segment=s[start:end]
+          mapping=[1,7,8,2,9,4,7,10,6,12,11,5]
+          count=[0]
+          def replace(m):
+              i=count[0];count[0]+=1
+              return m.group(1)+f'/haseeb-crafts/assets/hc-realistic-{mapping[i]:02}.webp'+m.group(2)
+          segment=re.sub(r'(<button class="hc-sc-card"[\s\S]*?<img src=")[^"]+(")',replace,segment)
+          assert count[0]==12, f'Expected 12 cards, found {count[0]}'
+          s=s[:start]+segment+s[end:]
+          html.write_text(s)
+          PY
+      - name: Commit images and HTML
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/hc-realistic-*.webp index.html
+          git diff --cached --quiet || (git commit -m "Install approved realistic service images in carousel" && git push)
