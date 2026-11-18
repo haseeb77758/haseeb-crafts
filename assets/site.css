@@ -918,3 +918,7 @@ h1[tabindex="-1"]:focus,main:focus{outline:none}
 /* Keep Try It Live in the header CTA, never as a regular menu link. */
 .hd-nav a[href*="try-it-live"],.menu nav a[href*="try-it-live"],.ft3-links a[href*="try-it-live"]{display:none!important}
 .hd-nav li:has(>a[href*="try-it-live"]),.menu nav li:has(>a[href*="try-it-live"]){display:none!important}
+
+/* Smooth anchor scrolling across Haseeb Crafts; preserve sticky header clearance. */
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
