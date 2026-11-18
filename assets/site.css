@@ -944,3 +944,17 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
 @media(prefers-reduced-motion:reduce){
   .svc-card::after,.hc-extra-card::after{animation:none!important;opacity:0!important}
 }
+
+/* Visible rotating highlight on the actual homepage service carousel cards. */
+@property --hc-glow-turn{syntax:"<angle>";initial-value:0deg;inherits:false}
+@keyframes hc-glow-orbit{to{--hc-glow-turn:360deg}}
+.hc-sc-card{position:relative;isolation:isolate}
+.hc-sc-card::after{
+ content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:10;
+ border:3px solid transparent;
+ background:conic-gradient(from var(--hc-glow-turn),transparent 0deg,transparent 205deg,#04d88b 260deg,#6aeaff 300deg,#04d88b 326deg,transparent 355deg) border-box;
+ -webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);
+ -webkit-mask-composite:xor;mask-composite:exclude;
+ animation:hc-glow-orbit 3s linear infinite;
+}
+@media(prefers-reduced-motion:reduce){.hc-sc-card::after{animation:none;opacity:.45}}
