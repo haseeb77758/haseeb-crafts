@@ -986,3 +986,33 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
 .hd-nav .hc-desktop-live a{color:#137a47!important;font-weight:700!important;white-space:nowrap}
 @media(max-width:980px){#menu nav ul>li.hc-menu-live{display:list-item!important;visibility:visible!important;opacity:1!important}}
 @media(min-width:981px){.hd-nav .hc-desktop-live{display:list-item!important}}
+
+/* Haseeb Crafts palette from supplied six-swatch reference — 18 Nov 2026.
+   #06141B #11212D #253745 #4A5C6A #9BA8AB #CCD0CF */
+:root{
+ --blue:#253745;--blue-hover:#11212D;--d:#11212D;--c:#9BA8AB;--y:#CCD0CF;
+ --n:#06141B;--navy:#06141B;--pale:#f1f3f3;--border:#cbd3d5;
+ --ink:#11212D;--body:#4A5C6A;--cream:#f6f7f7;--gold:#CCD0CF;--gold2:#9BA8AB;
+ --goldd:#253745;--blk:#06141B;
+ --g1:#06141B;--g2:#11212D;--g3:#253745;--g4:#4A5C6A;--g5:#9BA8AB;--g6:#CCD0CF;
+ --shadow:0 16px 38px -19px rgba(6,20,27,.38);
+ --shadow-soft:0 12px 28px -17px rgba(6,20,27,.3);
+}
+body{background:#f6f7f7;color:#4A5C6A}
+.hd,.hd-header,.site-header{background-color:#06141B}
+.menu{background:radial-gradient(ellipse at 80% 12%,#253745 0%,#11212D 40%,#06141B 85%)!important}
+.hd-nav a::after{background:#CCD0CF}
+.hd-nav .hc-desktop-live a{color:#CCD0CF!important}
+#menu nav ul>li.hc-menu-live a{color:#06141B!important;background:#CCD0CF!important}
+.hd-cta{background:#CCD0CF;color:#06141B}
+.btn,.btn-pill{box-shadow:var(--shadow)}
+.btn:hover{box-shadow:0 14px 30px -14px rgba(6,20,27,.4)}
+.hc-sc-section{background:linear-gradient(160deg,#f7f8f8 0%,#e9eeef 60%,#CCD0CF 150%)!important}
+#hc-sc-ring>.hc-sc-card{border:1px solid rgba(204,208,207,.6)!important;box-shadow:0 26px 50px -22px rgba(6,20,27,.75)!important}
+#hc-sc-ring>.hc-sc-card .hc-sc-brand{background:rgba(6,20,27,.78)!important;border-color:rgba(204,208,207,.45)!important}
+#hc-sc-ring>.hc-sc-card::after{animation:none!important}
+:focus-visible{outline-color:#4A5C6A}
+@media(prefers-reduced-motion:no-preference){
+ .btn,.hd-cta,.hc-sc-card{transition-property:transform,box-shadow,background-color;transition-duration:.25s;transition-timing-function:ease}
+ #hc-sc-ring>.hc-sc-card{transition:none!important}
+}
