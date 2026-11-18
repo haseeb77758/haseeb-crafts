@@ -1,0 +1,34 @@
+/* Haseeb Crafts cinematic homepage redesign — inspired by reference layout, own brand. */
+:root{--hc-cinema-bg:#060d0b;--hc-cinema-green:#73e4a4;--hc-cinema-ink:#eaf8ef}
+body:has(.view[data-route="/"]) {background:#070e0b}
+.view[data-route="/"]{background:var(--hc-cinema-bg);color:var(--hc-cinema-ink)}
+.view[data-route="/"] .h3-hero{position:relative;min-height:min(880px,100svh);overflow:hidden;background:radial-gradient(ellipse at 60% 55%,#184b34 0%,#0a1e17 38%,#050b09 75%)!important;color:#f5fff8!important;isolation:isolate}
+.view[data-route="/"] .h3-hero:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 48%,#050b09 100%),radial-gradient(ellipse at 50% 98%,rgba(68,214,131,.28),transparent 48%);pointer-events:none;z-index:0}
+.view[data-route="/"] .h3-h1{position:relative;z-index:2;font-family:Georgia,'Times New Roman',serif!important;font-weight:400!important;letter-spacing:-.065em!important;line-height:.92!important;text-transform:none!important;text-shadow:0 12px 50px #0009}
+.view[data-route="/"] .h3-h1 .wd.h{color:#91e5ae!important}
+.view[data-route="/"] .h3-cut{filter:drop-shadow(0 26px 44px rgba(0,0,0,.55));z-index:1}
+.view[data-route="/"] .h3-note{color:#c2d6ca!important;z-index:3}
+.view[data-route="/"] .h3-scroll{color:#93c9a7!important}
+.view[data-route="/"] .h3-st,.view[data-route="/"] .h3-ab,.view[data-route="/"] .h3-sk{background:#080e0c!important;color:#f4fff7!important}
+.view[data-route="/"] .h3-st{border-top:1px solid #21402e;border-bottom:1px solid #21402e}
+.view[data-route="/"] .h3-st .sw.g{color:#83e4a6!important}
+.view[data-route="/"] .h3-in{background:#09140f!important;padding-block:clamp(50px,8vw,110px)}
+.view[data-route="/"] .h3-vf{overflow:hidden;border:1px solid #2d7651!important;border-radius:22px!important;box-shadow:0 26px 85px #0008,0 0 65px #42df8020}
+.view[data-route="/"] .h3-vf img{transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.view[data-route="/"] .h3-vf:hover img{transform:scale(1.035)}
+.view[data-route="/"] .h3-ab{border-block:1px solid #1e3427}
+.view[data-route="/"] .h3-ab h2,.view[data-route="/"] .hc-sc-heading h2,.view[data-route="/"] .h3-pr h2{font-family:Georgia,'Times New Roman',serif!important;font-weight:400!important;letter-spacing:-.045em!important}
+.view[data-route="/"] .hc-sc-section{background:#060d0a!important;color:#f3fff6!important;border-top:1px solid #244632}
+.view[data-route="/"] .hc-sc-heading p{color:#a6c6b0!important}
+.view[data-route="/"] .hc-sc-heading h2{color:#f3fff6!important}
+.view[data-route="/"] .hc-sc-heading em{color:#80e6a7!important}
+.view[data-route="/"] #hc-sc-ring>.hc-sc-card{border:1px solid #398b61!important;box-shadow:0 14px 36px #0007!important;transition:box-shadow .35s ease,filter .35s ease!important}
+.view[data-route="/"] #hc-sc-ring>.hc-sc-card[aria-pressed="true"]{box-shadow:0 18px 48px #000a,0 0 25px #42d77a45!important}
+.view[data-route="/"] .hc-sc-detail{color:#e6f9ea!important}
+.view[data-route="/"] .hc-sc-detail p{color:#b4cabb!important}
+.view[data-route="/"] .hc-sc-controls{color:#e6faec!important}
+.view[data-route="/"] .h3-pr,.view[data-route="/"] .h3-wk,.view[data-route="/"] .h3-fq{background:#0a130e!important;color:#edf9f0!important}
+.view[data-route="/"] .h3-pr a,.view[data-route="/"] .h3-wk a{transition:transform .3s ease,box-shadow .3s ease}
+.view[data-route="/"] .h3-pr a:hover,.view[data-route="/"] .h3-wk a:hover{transform:translateY(-3px)}
+@media(max-width:720px){.view[data-route="/"] .h3-hero{min-height:760px}.view[data-route="/"] .h3-h1{font-size:clamp(58px,12vw,92px)!important}.view[data-route="/"] .h3-cut{opacity:.92}.view[data-route="/"] .h3-note{max-width:88%;line-height:1.6}}
+@media(prefers-reduced-motion:reduce){.view[data-route="/"] .h3-vf img,.view[data-route="/"] .h3-pr a,.view[data-route="/"] .h3-wk a{transition:none!important}}
