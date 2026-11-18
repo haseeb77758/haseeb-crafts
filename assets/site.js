@@ -769,22 +769,22 @@ if(!document.documentElement.classList.contains('ready')&&window.HC_hydrateAll){
   function jump(i){target=closest(i);idle=Date.now();kick()}
   function solve(){
     W=stage.clientWidth;if(!W)return;
-    w=Math.max(147,Math.min(278,W*.234));h=w*1.39;R=w*2.65;f=R*(1+c);G=Math.max(8,Math.min(22,w*.09));
-    var hw=w/2;
-    function dp(t,s){return R*(c+Math.cos(t))+s*hw*Math.sin(t)}
-    function xr(t){return f*(R*Math.sin(t)+hw*Math.cos(t))/dp(t,-1)}
-    function xl(t){return f*(R*Math.sin(t)-hw*Math.cos(t))/dp(t,1)}
-    T=[0];for(var k=1;k<=Math.ceil(n/2);k++){var goal=xr(T[k-1])+G,lo=T[k-1],hi=1.9;for(var j=0;j<39;j++){var mid=(lo+hi)/2;if(xl(mid)<goal)lo=mid;else hi=mid;}T.push((lo+hi)/2)}
-    stage.style.setProperty('--sc-w',w+'px');stage.style.setProperty('--sc-h',h+'px');stage.style.setProperty('--sc-f',f+'px');stage.style.height=Math.round(h*1.48)+'px';render();
+    w=Math.min(280,Math.max(195,W<650?W*.66:W*.29));h=w*1.32;G=Math.max(12,Math.min(22,W*.025));
+    stage.style.setProperty('--sc-w',w+'px');stage.style.setProperty('--sc-h',h+'px');
+    stage.style.height=Math.round(h+28)+'px';render();
   }
   function render(){
+    var spacing=w+G;
     cards.forEach(function(el,i){
-      var p=((i-pos)%n+n)%n;if(p>n/2)p-=n;var a=Math.abs(p),k=Math.min(Math.floor(a),T.length-2),ang=Math.sign(p)*(T[k]+(T[k+1]-T[k])*(a-k));
-      var sc=(1+c)/(c+Math.cos(ang)),sx=f*Math.sin(ang)/(c+Math.cos(ang)),sw=sc*w;
-      var opacity=Math.max(0,Math.min(1,(W/2+sw*.38-Math.abs(sx))/(sw*.48)))*Math.max(0,Math.min(1,(n/2-a)*2));
-      el.style.transform='translate3d('+R*Math.sin(ang)+'px,0,'+R*(1-Math.cos(ang))+'px) rotateY('+(-ang)+'rad)';
-      el.style.opacity=opacity.toFixed(3);el.style.zIndex=Math.round(100-a*12);el.style.pointerEvents=opacity<.06?'none':'auto';
-      el.tabIndex=opacity>.18?0:-1;el.setAttribute('aria-hidden',opacity<.06?'true':'false');
+      var p=((i-pos)%n+n)%n;if(p>n/2)p-=n;
+      var x=p*spacing;
+      var opacity=Math.max(0,Math.min(1,(W/2+w/2-Math.abs(x))/Math.max(30,w*.35)));
+      el.style.transform='translate3d('+x+'px,0,0)';
+      el.style.opacity=opacity.toFixed(3);
+      el.style.zIndex=100-Math.round(Math.abs(p));
+      el.style.pointerEvents=opacity<.08?'none':'auto';
+      el.tabIndex=opacity>.35?0:-1;
+      el.setAttribute('aria-hidden',opacity<.08?'true':'false');
     });
     setActive(((Math.round(pos)%n)+n)%n);
   }
