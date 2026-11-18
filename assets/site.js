@@ -755,38 +755,54 @@ window.HC_VIDEOS = { client: [], user: [], showreel: "/haseeb-crafts/videos/show
 
 if(!document.documentElement.classList.contains('ready')&&window.HC_hydrateAll){window.HC_hydrateAll()}
 
-/* HC service carousel: continuous seamless marquee, manual swipe and arrows. */
+/* Haseeb Crafts: WebNextOnline reference 3D carousel adapted to existing 12 service cards. */
 (function(){
 'use strict';
-var root=document.getElementById('sv-home'),rail=document.getElementById('hc-sc-ring');
-if(!root||!rail)return;
-var originals=Array.from(rail.querySelectorAll('[data-hc-card]'));
-var data=[{"name":"Website Development","description":"Responsive websites, landing pages and modern digital experiences.","category":"Web Design","details":"/haseeb-crafts/services/website-development/","contact":"website-development"},{"name":"WordPress & Elementor","description":"Editable websites, custom Elementor layouts and WordPress setups.","category":"WordPress","details":"/haseeb-crafts/services/wordpress-elementor/","contact":"wordpress-elementor"},{"name":"Motion Graphics","description":"Cinematic animated promos, typography, explainers and branded visuals.","category":"Motion Design","details":"/haseeb-crafts/services/motion-graphics/","contact":"motion-graphics"},{"name":"Video Editing","description":"Polished edits, motion titles, captions and social-first videos.","category":"Video Production","details":"/haseeb-crafts/services/video-editing/","contact":"video-editing"},{"name":"Branding & Identity","description":"Memorable logos, visual identities, posters and graphic design.","category":"Brand Design","details":"/haseeb-crafts/services/branding-identity/","contact":"branding-identity"},{"name":"Social Media Design","description":"Content creatives, campaign visuals, reels covers and templates.","category":"Social Creative","details":"/haseeb-crafts/services/social-media-design/","contact":"social-media-design"},{"name":"Chrome Extensions","description":"Custom browser tools to simplify tasks and improve workflows.","category":"Browser Tools","details":"/haseeb-crafts/services/?to=services&card=6","contact":"chrome-extensions"},{"name":"Web Apps & Dashboards","description":"Interactive web applications, admin panels and tailored interfaces.","category":"Applications","details":"/haseeb-crafts/services/?to=services&card=7","contact":"web-apps"},{"name":"AI Chatbots & Agents","description":"Chat interfaces, AI assistants and voice-driven workflow concepts.","category":"AI Solutions","details":"/haseeb-crafts/services/?to=services&card=8","contact":"ai-assistants"},{"name":"Desktop Software","description":"Windows utilities, productive desktop tools and app concepts.","category":"Desktop Apps","details":"/haseeb-crafts/services/?to=services&card=9","contact":"desktop-software"},{"name":"Automation & Integrations","description":"Connect websites, forms, spreadsheets, alerts and business workflows.","category":"Automation","details":"/haseeb-crafts/services/?to=services&card=10","contact":"automation"},{"name":"E-commerce & WooCommerce","description":"Online stores, product experiences and WooCommerce solutions.","category":"E-commerce","details":"/haseeb-crafts/services/?to=services&card=11","contact":"ecommerce"}];
-var n=originals.length;if(!n)return;
-var cat=document.getElementById('hc-sc-category'),title=document.getElementById('hc-sc-title'),desc=document.getElementById('hc-sc-desc'),more=document.getElementById('hc-sc-more'),discuss=document.getElementById('hc-sc-discuss'),dotsBox=document.getElementById('hc-sc-dots');
-var prev=document.getElementById('hc-sc-prev'),next=document.getElementById('hc-sc-next');
-var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-var pauseUntil=0,last=0,lastSelected=-1,cycle=0;
-var fragment=document.createDocumentFragment();
-originals.forEach(function(el){var copy=el.cloneNode(true);copy.setAttribute('aria-hidden','true');copy.tabIndex=-1;fragment.appendChild(copy)});
-rail.appendChild(fragment);
-var items=Array.from(rail.querySelectorAll('[data-hc-card]'));
-function size(){cycle=items[n].offsetLeft-items[0].offsetLeft}
-function normalize(){if(!cycle)return;while(rail.scrollLeft>=cycle)rail.scrollLeft-=cycle;while(rail.scrollLeft<0)rail.scrollLeft+=cycle}
-function centerIndex(){var center=rail.getBoundingClientRect().left+rail.clientWidth/2,best=0,dist=Infinity;items.forEach(function(el,i){var r=el.getBoundingClientRect(),d=Math.abs(r.left+r.width/2-center);if(d<dist){dist=d;best=i%n}});return best}
-var dots=[];
-data.forEach(function(d,i){var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Show '+d.name);b.addEventListener('click',function(){go(i)});dotsBox.appendChild(b);dots.push(b)});
-function select(i){i=(i+n)%n;if(i===lastSelected)return;lastSelected=i;var d=data[i];cat.textContent=d.category;title.textContent=d.name;desc.textContent=d.description;more.href=d.details;discuss.href='/haseeb-crafts/contact/?service='+encodeURIComponent(d.contact)+'&to=start-project';dots.forEach(function(b,j){b.classList.toggle('on',i===j);b.setAttribute('aria-current',String(i===j))});items.forEach(function(el){el.setAttribute('aria-pressed',String(Number(el.dataset.hcCard)===i))})}
-function go(i){size();normalize();var target=items[i].offsetLeft-items[0].offsetLeft;var now=rail.scrollLeft;var options=[target-cycle,target,target+cycle];var best=options.reduce(function(a,b){return Math.abs(b-now)<Math.abs(a-now)?b:a});pauseUntil=performance.now()+3200;rail.scrollBy({left:best-now,behavior:reduce?'auto':'smooth'});select(i)}
-function step(dir){go((centerIndex()+dir+n)%n)}
-prev.addEventListener('click',function(){step(-1)});
-next.addEventListener('click',function(){step(1)});
-items.forEach(function(el){el.addEventListener('click',function(){go(Number(el.dataset.hcCard))})});
-rail.addEventListener('pointerdown',function(){pauseUntil=performance.now()+4500},{passive:true});
-rail.addEventListener('touchstart',function(){pauseUntil=performance.now()+4500},{passive:true});
-rail.addEventListener('scroll',function(){select(centerIndex())},{passive:true});
-root.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();step(e.key==='ArrowRight'?1:-1)}});
-function tick(now){if(last===0)last=now;var dt=Math.min(50,now-last);last=now;if(!reduce&&now>pauseUntil&&!document.hidden&&root.getBoundingClientRect().bottom>0&&root.getBoundingClientRect().top<innerHeight){rail.scrollLeft+=dt*.045;normalize();select(centerIndex())}requestAnimationFrame(tick)}
-size();select(0);requestAnimationFrame(tick);
-window.addEventListener('resize',function(){size();normalize()},{passive:true});
+const stage=document.getElementById('hc-sc-stage'),ring=document.getElementById('hc-sc-ring');
+if(!stage||!ring)return;
+const cards=Array.from(ring.querySelectorAll('[data-hc-card]')),n=cards.length;
+const data=[{"name":"Website Development","description":"Responsive websites, landing pages and modern digital experiences.","category":"Web Design","details":"/haseeb-crafts/services/website-development/","contact":"website-development"},{"name":"WordPress & Elementor","description":"Editable websites, custom Elementor layouts and WordPress setups.","category":"WordPress","details":"/haseeb-crafts/services/wordpress-elementor/","contact":"wordpress-elementor"},{"name":"Motion Graphics","description":"Cinematic animated promos, typography, explainers and branded visuals.","category":"Motion Design","details":"/haseeb-crafts/services/motion-graphics/","contact":"motion-graphics"},{"name":"Video Editing","description":"Polished edits, motion titles, captions and social-first videos.","category":"Video Production","details":"/haseeb-crafts/services/video-editing/","contact":"video-editing"},{"name":"Branding & Identity","description":"Memorable logos, visual identities, posters and graphic design.","category":"Brand Design","details":"/haseeb-crafts/services/branding-identity/","contact":"branding-identity"},{"name":"Social Media Design","description":"Content creatives, campaign visuals, reels covers and templates.","category":"Social Creative","details":"/haseeb-crafts/services/social-media-design/","contact":"social-media-design"},{"name":"Chrome Extensions","description":"Custom browser tools to simplify tasks and improve workflows.","category":"Browser Tools","details":"/haseeb-crafts/services/?to=services&card=6","contact":"chrome-extensions"},{"name":"Web Apps & Dashboards","description":"Interactive web applications, admin panels and tailored interfaces.","category":"Applications","details":"/haseeb-crafts/services/?to=services&card=7","contact":"web-apps"},{"name":"AI Chatbots & Agents","description":"Chat interfaces, AI assistants and voice-driven workflow concepts.","category":"AI Solutions","details":"/haseeb-crafts/services/?to=services&card=8","contact":"ai-assistants"},{"name":"Desktop Software","description":"Windows utilities, productive desktop tools and app concepts.","category":"Desktop Apps","details":"/haseeb-crafts/services/?to=services&card=9","contact":"desktop-software"},{"name":"Automation & Integrations","description":"Connect websites, forms, spreadsheets, alerts and business workflows.","category":"Automation","details":"/haseeb-crafts/services/?to=services&card=10","contact":"automation"},{"name":"E-commerce & WooCommerce","description":"Online stores, product experiences and WooCommerce solutions.","category":"E-commerce","details":"/haseeb-crafts/services/?to=services&card=11","contact":"ecommerce"}];
+const chip=document.getElementById('hc-sc-category'),ttl=document.getElementById('hc-sc-title'),txt=document.getElementById('hc-sc-desc'),dotsEl=document.getElementById('hc-sc-dots');
+const more=document.getElementById('hc-sc-more'),discuss=document.getElementById('hc-sc-discuss');
+const c=.75;
+let W,w,h,R,f,G,T=[0],pos=0,target=0,drag=null,run=false,cur=-1,hover=false,moved=0,idle=Date.now(),snapT;
+const dots=data.map((d,j)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',d.name);b.onclick=()=>{idle=Date.now();let o=((j-Math.round(pos))%n+n)%n;if(o>n/2)o-=n;target=Math.round(pos)+o;kick()};dotsEl.appendChild(b);return b});
+function solve(){
+ W=stage.clientWidth;if(!W)return;
+ w=Math.max(104,Math.min(210,W*.25));h=w*1.42;R=w*2.6;f=R*(1+c);G=Math.max(8,Math.min(20,w*.1));
+ const hw=w/2,dp=(t,s)=>R*(c+Math.cos(t))+s*hw*Math.sin(t);
+ const xr=t=>f*(R*Math.sin(t)+hw*Math.cos(t))/dp(t,-1);
+ const xl=t=>f*(R*Math.sin(t)-hw*Math.cos(t))/dp(t,1);
+ T=[0];for(let k=1;k<=6;k++){const goal=xr(T[k-1])+G;let lo=T[k-1],hi=1.9;for(let j=0;j<40;j++){const m=(lo+hi)/2;xl(m)<goal?lo=m:hi=m}T.push((lo+hi)/2)}
+ stage.style.setProperty('--sc-w',w+'px');stage.style.setProperty('--sc-h',h+'px');stage.style.setProperty('--sc-f',f+'px');stage.style.height=Math.round(h*1.7)+'px';render()
+}
+function render(){
+ cards.forEach((el,i)=>{
+  let p=((i-pos)%n+n)%n;if(p>n/2)p-=n;el._p=p;
+  const a=Math.abs(p),k=Math.min(Math.floor(a),5),t=Math.sign(p)*(T[k]+(T[k+1]-T[k])*(a-k));
+  const s=(1+c)/(c+Math.cos(t)),sx=f*Math.sin(t)/(c+Math.cos(t)),sw=s*w;
+  const o=Math.max(0,Math.min(1,(W/2+sw*.35-Math.abs(sx))/(sw*.5)))*Math.max(0,Math.min(1,(n/2-a)*2));
+  el.style.transform='translate3d('+R*Math.sin(t)+'px,0,'+R*(1-Math.cos(t))+'px) rotateY('+(-t)+'rad)';
+  el.style.opacity=o;el.style.pointerEvents=o<.05?'none':'auto';el.style.setProperty('--d',Math.min(1,a*.35));el.style.zIndex=100-Math.round(a);
+ });
+ setActive(((Math.round(pos)%n)+n)%n)
+}
+function setActive(i){if(i===cur)return;cur=i;const d=data[i];chip.textContent=d.category;ttl.textContent=d.name;txt.textContent=d.description;more.href=d.details;discuss.href='/haseeb-crafts/contact/?service='+encodeURIComponent(d.contact)+'&to=start-project';dots.forEach((b,j)=>b.classList.toggle('on',j===i))}
+function tick(){if(!drag){pos+=(target-pos)*.14;if(Math.abs(target-pos)<.001)pos=target}render();if(drag||pos!==target)requestAnimationFrame(tick);else run=false}
+function kick(){if(!run){run=true;requestAnimationFrame(tick)}}
+function step(d){idle=Date.now();target=Math.round(target)+d;kick()}
+document.getElementById('hc-sc-prev').onclick=()=>step(-1);
+document.getElementById('hc-sc-next').onclick=()=>step(1);
+stage.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();step(e.key==='ArrowRight'?1:-1)}});
+cards.forEach(el=>el.onclick=()=>{if(moved>6)return;idle=Date.now();target=Math.round(pos+el._p);kick()});
+stage.addEventListener('pointerdown',e=>{idle=Date.now();drag={x:e.clientX,p:pos,l:e.clientX,v:0};moved=0;stage.setPointerCapture?.(e.pointerId)});
+stage.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x;moved=Math.max(moved,Math.abs(dx));drag.v=e.clientX-drag.l;drag.l=e.clientX;pos=drag.p-dx/(w+G);target=pos;kick()});
+const end=()=>{if(!drag)return;target=Math.round(pos-drag.v/(w+G)*6);drag=null;idle=Date.now();kick()};
+stage.addEventListener('pointerup',end);stage.addEventListener('pointercancel',end);
+stage.addEventListener('wheel',e=>{if(Math.abs(e.deltaX)<=Math.abs(e.deltaY))return;e.preventDefault();idle=Date.now();target+=e.deltaX/260;kick();clearTimeout(snapT);snapT=setTimeout(()=>{target=Math.round(target);kick()},120)},{passive:false});
+stage.addEventListener('mouseenter',()=>hover=true);stage.addEventListener('mouseleave',()=>hover=false);
+const still=matchMedia('(prefers-reduced-motion:reduce)');
+setInterval(()=>{if(!drag&&!hover&&!still.matches&&!document.hidden&&Date.now()-idle>4500){target=Math.round(target)+1;kick()}},3800);
+if('ResizeObserver'in window)new ResizeObserver(solve).observe(stage);else addEventListener('resize',solve);
+solve();
 })();
