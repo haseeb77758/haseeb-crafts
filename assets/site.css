@@ -959,34 +959,13 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
 }
 @media(prefers-reduced-motion:reduce){.hc-sc-card::after{animation:none;opacity:.45}}
 
-/* Flat single-line service carousel: no vertical stagger or 3D perspective. */
-.hc-sc-stage{perspective:none!important;perspective-origin:center!important}
-.hc-sc-ring{transform-style:flat!important}
-.hc-sc-card{transform-style:flat!important;backface-visibility:visible!important;transition:box-shadow .3s ease}
-.hc-sc-card:hover{box-shadow:0 18px 42px rgba(0,90,65,.3)}
-@media(max-width:760px){.hc-sc-stage{margin-top:12px!important}}
 
-/* Service carousel: single horizontal row, same baseline, swipe and arrows. */
-#hc-sc-stage{perspective:none!important;overflow:hidden!important;touch-action:pan-y}
-#hc-sc-ring{transform-style:flat!important}
-#hc-sc-ring>.hc-sc-card{top:50%!important;left:50%!important;transform-style:flat!important;backface-visibility:visible!important}
-#hc-sc-ring>.hc-sc-card::after{animation:hc-glow-orbit 3s linear infinite}
-@media(max-width:760px){#hc-sc-stage{width:100%!important}#hc-sc-ring>.hc-sc-card{border-radius:20px}}
-
-/* Native one-line swipe rail overrides obsolete 3D positioning. */
-#hc-sc-stage{height:auto!important;min-height:0!important;overflow:visible!important;perspective:none!important;cursor:auto!important;width:100%!important}
-#hc-sc-ring{position:relative!important;inset:auto!important;display:flex!important;flex-flow:row nowrap!important;align-items:stretch!important;gap:16px!important;overflow-x:auto!important;overflow-y:hidden!important;scroll-snap-type:x mandatory!important;scroll-padding-inline:calc((100% - min(74vw,280px))/2);padding:18px max(16px,calc((100% - min(74vw,280px))/2)) 26px!important;box-sizing:border-box!important;transform:none!important;transform-style:flat!important;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;touch-action:pan-x pan-y}
-#hc-sc-ring::-webkit-scrollbar{display:none}
-#hc-sc-ring>.hc-sc-card{position:relative!important;top:auto!important;left:auto!important;inset:auto!important;flex:0 0 min(74vw,280px)!important;width:min(74vw,280px)!important;height:370px!important;margin:0!important;transform:none!important;opacity:1!important;visibility:visible!important;scroll-snap-align:center!important;scroll-snap-stop:always!important;perspective:none!important;z-index:auto!important;pointer-events:auto!important}
-#hc-sc-ring>.hc-sc-card[aria-pressed="true"]{box-shadow:0 14px 32px rgba(2,79,49,.3)}
-@media(min-width:900px){#hc-sc-ring{scroll-padding-inline:calc((100% - 280px)/2);padding-inline:max(16px,calc((100% - 280px)/2))!important}#hc-sc-ring>.hc-sc-card{flex-basis:280px!important;width:280px!important;height:380px!important}}
-@media(prefers-reduced-motion:reduce){#hc-sc-ring{scroll-behavior:auto!important}}
-
-/* Original reference: two portrait cards per mobile row. */
-#hc-sc-stage{overflow:hidden!important;width:100%!important}
-#hc-sc-ring{display:flex!important;flex-wrap:nowrap!important;align-items:center!important;gap:12px!important;overflow-x:auto!important;scroll-snap-type:none!important;scroll-behavior:auto!important;padding:16px 8px 20px!important;scroll-padding-inline:0!important}
-#hc-sc-ring>.hc-sc-card{position:relative!important;top:auto!important;left:auto!important;flex:0 0 calc((100% - 32px)/2)!important;width:calc((100% - 32px)/2)!important;height:auto!important;aspect-ratio:.72!important;border-radius:18px!important;scroll-snap-align:none!important}
+/* Restore reference 3D ring geometry, remove conflicting flat carousel overrides. */
+#hc-sc-stage{position:relative!important;perspective:var(--sc-f,1100px)!important;overflow:hidden!important;touch-action:pan-y!important;cursor:grab!important;height:430px}
+#hc-sc-ring{position:absolute!important;inset:0!important;display:block!important;overflow:visible!important;transform-style:preserve-3d!important;padding:0!important;scroll-snap-type:none!important}
+#hc-sc-ring>.hc-sc-card{position:absolute!important;left:50%!important;top:50%!important;width:var(--sc-w,180px)!important;height:var(--sc-h,255px)!important;min-height:0!important;flex:none!important;margin:calc(var(--sc-h,255px)/-2) 0 0 calc(var(--sc-w,180px)/-2)!important;aspect-ratio:auto!important;transform-style:preserve-3d!important;backface-visibility:hidden!important;border-radius:18px!important;transition:none!important}
+#hc-sc-ring>.hc-sc-card::after{animation:none!important}
+#hc-sc-ring>.hc-sc-card .hc-sc-card-top{padding:10px 10px 0!important}
 #hc-sc-ring>.hc-sc-card .hc-sc-card-bottom{padding:12px!important}
-#hc-sc-ring>.hc-sc-card .hc-sc-card-bottom strong{font-size:clamp(14px,3.6vw,22px)!important;line-height:1.18!important}
-#hc-sc-ring>.hc-sc-card .hc-sc-card-top{padding:9px!important;font-size:10px!important}
-@media(min-width:760px){#hc-sc-ring{gap:18px!important}#hc-sc-ring>.hc-sc-card{flex:0 0 270px!important;width:270px!important;height:375px!important;aspect-ratio:auto!important}}
+#hc-sc-ring>.hc-sc-card .hc-sc-card-bottom strong{font-size:clamp(13px,2vw,18px)!important;line-height:1.15!important}
+@media(prefers-reduced-motion:reduce){#hc-sc-ring>.hc-sc-card{will-change:auto!important}}
