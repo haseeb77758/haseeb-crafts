@@ -1050,3 +1050,47 @@ a{color:#007FFF}
 .h3-hero em,.hc-sc-heading em,.h3-h1 em{color:#FFD84D}
 footer,.footer,.site-footer{background-color:#10233D;color:#D9EDFF}
 footer a,.footer a,.site-footer a{color:#66CCFF}
+
+/* AZURE SKY — FINAL CONSISTENT THEME. Single source of truth, Nov 2026. */
+:root{
+ --blue:#007FFF!important;--blue-hover:#1E90FF!important;--d:#10233D!important;
+ --c:#66CCFF!important;--y:#FFD84D!important;--n:#10233D!important;
+ --navy:#10233D!important;--ink:#10233D!important;--body:#42627F!important;
+ --cream:#F0F8FF!important;--pale:#F0F8FF!important;--border:#D7E7F4!important;
+ --gold:#EAF5FF!important;--gold2:#66CCFF!important;--goldd:#007FFF!important;
+ --blk:#10233D!important;--g1:#10233D!important;--g2:#17365B!important;
+ --g3:#007FFF!important;--g4:#1E90FF!important;--g5:#66CCFF!important;--g6:#F0F8FF!important
+}
+html,body{background:#F0F8FF!important}
+body,.view{color:#42627F}
+h1,h2,h3,h4,h5,h6,.section-head h2{color:#10233D}
+p,.lead,.section-head p{color:inherit}
+.section,.section.pale,.hc-sc-section{background:#F0F8FF!important}
+.section:nth-of-type(even){background:#EAF5FF!important}
+.hd{background:#10233D!important;border-color:rgba(102,204,255,.18)!important}
+.hd-nav a{color:#F0F8FF!important}
+.hd-nav a:hover,.hd-nav a[aria-current=page],.hd-nav .hc-desktop-live a{color:#66CCFF!important}
+.hd-nav a::after{background:#66CCFF!important}
+.hd-cta{background:#F0F8FF!important;color:#10233D!important}
+.hd-pill{background:#10233D!important;color:#F0F8FF!important;border-color:#66CCFF!important}
+.menu{background:linear-gradient(145deg,#10233D,#17365B)!important;color:#F0F8FF!important}
+.menu nav a,.menu-note{color:#F0F8FF!important}
+.menu nav a:hover{color:#66CCFF!important}
+#menu nav ul>li.hc-menu-live a{background:#66CCFF!important;color:#10233D!important}
+.btn:not(.btn-secondary),.btn-pill:not(.btn-secondary){background:#007FFF!important;border-color:#007FFF!important;color:#fff!important}
+.btn:not(.btn-secondary):hover{background:#1E90FF!important;border-color:#1E90FF!important}
+.btn-secondary{background:#fff!important;color:#10233D!important;border-color:#D7E7F4!important}
+.eyebrow,.k3{color:#007FFF!important}
+.hc-sc-section{background:linear-gradient(160deg,#F0F8FF,#EAF5FF)!important}
+.hc-sc-heading h2,.hc-sc-heading p{color:#10233D!important}
+#hc-sc-ring>.hc-sc-card{border-color:rgba(102,204,255,.55)!important;box-shadow:0 22px 46px -20px rgba(16,35,61,.48)!important}
+.ft3,footer,.footer,.site-footer{background:#10233D!important;color:#DCEEFF!important}
+.ft3 h2,.ft3 h3,.ft3-h,.ft3-k,.ft3-note,.ft3-b,footer h2,footer h3{color:#F0F8FF!important}
+.ft3 a,footer a,.footer a,.site-footer a{color:#66CCFF!important}
+.ft3-btn{background:#007FFF!important;color:#fff!important;border-color:#007FFF!important}
+.h3-hero{background-color:#10233D!important}
+.h3-hero h1,.h3-hero h2,.h3-hero p,.h3-hero .h3-h1{color:#F0F8FF!important}
+.h3-hero em,.h3-h1 em{color:#FFD84D!important}
+.hc-sc-heading em{color:#007FFF!important}
+a:focus-visible,button:focus-visible{outline-color:#007FFF!important}
+::selection{background:#66CCFF;color:#10233D}
