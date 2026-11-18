@@ -958,3 +958,10 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
  animation:hc-glow-orbit 3s linear infinite;
 }
 @media(prefers-reduced-motion:reduce){.hc-sc-card::after{animation:none;opacity:.45}}
+
+/* Flat single-line service carousel: no vertical stagger or 3D perspective. */
+.hc-sc-stage{perspective:none!important;perspective-origin:center!important}
+.hc-sc-ring{transform-style:flat!important}
+.hc-sc-card{transform-style:flat!important;backface-visibility:visible!important;transition:box-shadow .3s ease}
+.hc-sc-card:hover{box-shadow:0 18px 42px rgba(0,90,65,.3)}
+@media(max-width:760px){.hc-sc-stage{margin-top:12px!important}}
