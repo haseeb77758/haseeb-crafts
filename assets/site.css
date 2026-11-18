@@ -969,3 +969,10 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
 #hc-sc-ring>.hc-sc-card .hc-sc-card-bottom{padding:12px!important}
 #hc-sc-ring>.hc-sc-card .hc-sc-card-bottom strong{font-size:clamp(13px,2vw,18px)!important;line-height:1.15!important}
 @media(prefers-reduced-motion:reduce){#hc-sc-ring>.hc-sc-card{will-change:auto!important}}
+
+/* Restore Try It Live in MOBILE hamburger menu only. */
+@media(max-width:767px){
+ #menu .hc-menu-live{display:list-item!important;visibility:visible!important;opacity:1!important}
+ #menu .hc-menu-live>a{display:block!important;visibility:visible!important;opacity:1!important}
+}
+@media(min-width:768px){#menu .hc-menu-live{display:none!important}}
