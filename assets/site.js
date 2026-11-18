@@ -800,7 +800,7 @@ if(!document.documentElement.classList.contains('ready')&&window.HC_hydrateAll){
  }
  ring.addEventListener('scroll',function(){clearTimeout(settleTimer);settleTimer=setTimeout(settle,180)},{passive:true});
  function restartAuto(){if(autoTimer)clearInterval(autoTimer);if(reduce)return;
-   autoTimer=setInterval(function(){if(document.hidden||!root.getBoundingClientRect().height)return;step(1)},4800);
+   autoTimer=setInterval(function(){if(document.hidden||!root.getBoundingClientRect().height)return;step(1)},2800);
  }
  ring.addEventListener('pointerdown',function(){if(autoTimer)clearInterval(autoTimer)},{passive:true});
  ring.addEventListener('pointerup',restartAuto,{passive:true});
