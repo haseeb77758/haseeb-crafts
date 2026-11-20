@@ -55,6 +55,7 @@ def build():
   meta(head,'geo.region','PK-PB')
   meta(head,'geo.placename','Rawalpindi, Pakistan')
   meta(head,'google-site-verification',VERIFY)
+  if route=='/':meta(head,'google-site-verification','6IWPdVt60qoQVswOCe10SlZ5-73Gxx38-ITdLqA_aOk')
   meta(head,'robots','noindex,follow' if route=='404' else 'index,follow,max-image-preview:large')
   canonical=URL+(route.strip('/')+'/' if route!='/' and route!='404' else '')
   if route!='404':etree.SubElement(head,'link',rel='canonical',href=canonical)

@@ -22,7 +22,7 @@ for url in urls:
  seen_titles.add(title);seen_desc.add(desc)
  assert doc.xpath('//link[@rel="canonical"]/@href')==[url],file
  assert 'noindex' not in doc.xpath('//meta[@name="robots"]/@content')[0],file
- assert doc.xpath('//meta[@name="google-site-verification"]/@content')==['952w3cYsItd12V8_mYMvQMhhqZai5DPtdN3kej0U_p8'],file
+ assert doc.xpath('//meta[@name="google-site-verification"]/@content')==(['952w3cYsItd12V8_mYMvQMhhqZai5DPtdN3kej0U_p8','6IWPdVt60qoQVswOCe10SlZ5-73Gxx38-ITdLqA_aOk'] if path==BASE else ['952w3cYsItd12V8_mYMvQMhhqZai5DPtdN3kej0U_p8']),file
  assert doc.xpath('//meta[@property="og:url"]/@content')==[url],file
  for sc in doc.xpath('//script[@type="application/ld+json"]'):json.loads(sc.text)
  for el in doc.xpath('//*[@src or @href]'):
