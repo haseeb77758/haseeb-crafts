@@ -418,6 +418,7 @@ window.HC_VIDEOS = { client: [], user: [], showreel: "/haseeb-crafts/videos/show
   var $ = function (s, c) { return (c || document).querySelector(s); }, $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var cf = document.getElementById('cf'); if (!cf) return;
+  var fan = cf.classList.contains('hc-fan');
   var it = $$('.ci', cf), n = it.length, cur = 0, dots = document.getElementById('cfc'), st = document.getElementById('cfs');
   var user = false, hov = false, foc = false, off = true, hid = document.hidden, tm = null, drag = null, dlgOpen = false;
   var pp = document.createElement('button'); pp.className = 'pp'; pp.type = 'button';
@@ -441,9 +442,13 @@ window.HC_VIDEOS = { client: [], user: [], showreel: "/haseeb-crafts/videos/show
     var m = window.innerWidth < 760, step = w * (m ? .74 : .66), vis = m ? 1 : 2;
     it.forEach(function (c, i) {
       var d = i - cur; if (d > n / 2) d -= n; if (d < -n / 2) d += n;
-      var a = Math.abs(d), show = a <= vis;
-      c.style.transform = 'translate(calc(-50% + ' + (d * step).toFixed(1) + 'px),-50%) scale(' + (1 - .13 * a).toFixed(3) + ') rotateY(' + (-d * 14) + 'deg)';
-      c.style.zIndex = 20 - a; c.style.opacity = show ? (1 - .26 * a) : 0; c.style.pointerEvents = show ? 'auto' : 'none';
+      var a = Math.abs(d), show = a <= (fan ? 3 : vis);
+      if (fan) {
+        var angle = d * (m ? 31 : 38);
+        c.style.setProperty('--fan-open', 'translate(-50%,-50%) rotate(' + angle + 'deg) translateY(' + (m ? -70 : -105) + 'px) rotateX(7deg)');
+      }
+      c.style.transform = fan ? 'var(--fan-open)' : 'translate(calc(-50% + ' + (d * step).toFixed(1) + 'px),-50%) scale(' + (1 - .13 * a).toFixed(3) + ') rotateY(' + (-d * 14) + 'deg)';
+      c.style.zIndex = 20 - a; c.style.opacity = show ? (fan ? 1 : 1 - .26 * a) : 0; c.style.pointerEvents = show ? 'auto' : 'none';
       c.classList.toggle('on', d === 0); c.setAttribute('aria-hidden', show ? 'false' : 'true');
       $$('a,button', c).forEach(function (b) { b.tabIndex = d === 0 ? 0 : -1; });
     });
@@ -458,7 +463,11 @@ window.HC_VIDEOS = { client: [], user: [], showreel: "/haseeb-crafts/videos/show
   cf.style.touchAction = 'pan-y';
   function should() { return !reduce && !user && !hov && !foc && !off && !hid && !dlgOpen; }
   function sync() {
-    if (should()) { if (!tm) tm = setInterval(function () { go(cur + 1); }, 5200); } else if (tm) { clearInterval(tm); tm = null; }
+    if (should()) { if (!tm) tm = setInterval(function () {
+      if (!fan) { go(cur + 1); return; }
+      cf.classList.add('hc-folded');
+      setTimeout(function () { if (!should()) { cf.classList.remove('hc-folded'); return; } go(cur + 1); cf.classList.remove('hc-folded'); }, 850);
+    }, fan ? 10000 : 5200); } else if (tm) { clearInterval(tm); tm = null; }
     if (reduce) { pp.disabled = true; pp.textContent = 'Autoplay off'; } else { pp.textContent = user ? 'Play' : 'Pause'; pp.setAttribute('aria-label', user ? 'Play automatic carousel' : 'Pause automatic carousel'); }
   }
   pp.onclick = function () { user = !user; sync(); };
