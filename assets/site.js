@@ -420,11 +420,15 @@ window.HC_VIDEOS = { client: [], user: [], showreel: "/haseeb-crafts/videos/show
   var cf = document.getElementById('cf'); if (!cf) return;
   var fan = cf.classList.contains('hc-fan');
   var it = $$('.ci', cf), n = it.length, cur = 0, dots = document.getElementById('cfc'), st = document.getElementById('cfs');
-  var user = false, hov = false, foc = false, off = true, hid = document.hidden, tm = null, drag = null, dlgOpen = false;
+  var user = false, hov = false, foc = false, off = true, hid = document.hidden, tm = null, drag = null, dlgOpen = false, foldTimer = null;
   var pp = document.createElement('button'); pp.className = 'pp'; pp.type = 'button';
   for (var i = 0; i < n; i++) (function (i) { var d = document.createElement('button'); d.className = 'dt'; d.type = 'button'; d.setAttribute('aria-label', 'Show service ' + (i + 1) + ' of ' + n); d.onclick = function () { go(i); }; dots.appendChild(d); })(i);
   dots.appendChild(pp);
-  function go(i) { cur = (i + n) % n; lay(); }
+  function go(i) {
+    if (foldTimer) { clearTimeout(foldTimer); foldTimer = null; }
+    cf.classList.remove('hc-folded');
+    cur = (i + n) % n; lay();
+  }
   function focusServiceFromLink() {
     var hash = '/haseeb-crafts/services/' + location.search;
     if (!hash.startsWith('/haseeb-crafts/services/?')) return;
@@ -444,12 +448,16 @@ window.HC_VIDEOS = { client: [], user: [], showreel: "/haseeb-crafts/videos/show
       var d = i - cur; if (d > n / 2) d -= n; if (d < -n / 2) d += n;
       var a = Math.abs(d), show = a <= (fan ? 3 : vis);
       if (fan) {
-        var angle = d * (m ? 31 : 38);
-        c.style.setProperty('--fan-open', 'translate(-50%,-50%) rotate(' + angle + 'deg) translateY(' + (m ? -70 : -105) + 'px) rotateX(7deg)');
+        var compact = cf.clientWidth < 600;
+        var spread = Math.min(compact ? 91 : 156, cf.clientWidth * (compact ? .235 : .145));
+        var angle = d * (compact ? 19 : 21);
+        var x = d * spread, y = a * a * (compact ? 22 : 27);
+        c.style.setProperty('--fan-open', 'translate(-50%,-50%) translate3d(' + x.toFixed(1) + 'px,' + y + 'px,' + (-a * 20) + 'px) rotate(' + angle + 'deg)');
       }
       c.style.transform = fan ? 'var(--fan-open)' : 'translate(calc(-50% + ' + (d * step).toFixed(1) + 'px),-50%) scale(' + (1 - .13 * a).toFixed(3) + ') rotateY(' + (-d * 14) + 'deg)';
       c.style.zIndex = 20 - a; c.style.opacity = show ? (fan ? 1 : 1 - .26 * a) : 0; c.style.pointerEvents = show ? 'auto' : 'none';
       c.classList.toggle('on', d === 0); c.setAttribute('aria-hidden', show ? 'false' : 'true');
+      if ('inert' in c) c.inert = !show;
       $$('a,button', c).forEach(function (b) { b.tabIndex = d === 0 ? 0 : -1; });
     });
     $$('.dt', dots).forEach(function (d, i) { if (i === cur) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current'); });
@@ -459,6 +467,7 @@ window.HC_VIDEOS = { client: [], user: [], showreel: "/haseeb-crafts/videos/show
   $('#pv').onclick = function () { go(cur - 1); }; $('#nx').onclick = function () { go(cur + 1); };
   cf.addEventListener('keydown', function (e) { if (e.key === 'ArrowRight') { e.preventDefault(); go(cur + 1); } else if (e.key === 'ArrowLeft') { e.preventDefault(); go(cur - 1); } });
   cf.addEventListener('pointerdown', function (e) { if (e.target.closest('a,button')) return; drag = { x: e.clientX, y: e.clientY }; });
+  cf.addEventListener('pointercancel', function () { drag = null; });
   window.addEventListener('pointerup', function (e) { if (!drag) return; var dx = e.clientX - drag.x, dy = e.clientY - drag.y; drag = null; if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) go(cur + (dx < 0 ? 1 : -1)); });
   cf.style.touchAction = 'pan-y';
   function should() { return !reduce && !user && !hov && !foc && !off && !hid && !dlgOpen; }
@@ -466,8 +475,12 @@ window.HC_VIDEOS = { client: [], user: [], showreel: "/haseeb-crafts/videos/show
     if (should()) { if (!tm) tm = setInterval(function () {
       if (!fan) { go(cur + 1); return; }
       cf.classList.add('hc-folded');
-      setTimeout(function () { if (!should()) { cf.classList.remove('hc-folded'); return; } go(cur + 1); cf.classList.remove('hc-folded'); }, 850);
-    }, fan ? 10000 : 5200); } else if (tm) { clearInterval(tm); tm = null; }
+      foldTimer = setTimeout(function () { foldTimer = null; if (!should()) { cf.classList.remove('hc-folded'); return; } go(cur + 1); }, 650);
+    }, fan ? 6500 : 5200); } else {
+      if (tm) { clearInterval(tm); tm = null; }
+      if (foldTimer) { clearTimeout(foldTimer); foldTimer = null; }
+      cf.classList.remove('hc-folded');
+    }
     if (reduce) { pp.disabled = true; pp.textContent = 'Autoplay off'; } else { pp.textContent = user ? 'Play' : 'Pause'; pp.setAttribute('aria-label', user ? 'Play automatic carousel' : 'Pause automatic carousel'); }
   }
   pp.onclick = function () { user = !user; sync(); };

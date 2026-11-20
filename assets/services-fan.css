@@ -1,16 +1,17 @@
-/* Service card album: scoped to the Services carousel. */
-.hc-fan{height:690px;isolation:isolate;perspective:1400px;overflow:hidden;border-radius:32px;background:radial-gradient(ellipse at 50% 42%,#e2eee5 0,transparent 59%),linear-gradient(135deg,#f7faf7,#eaf0eb);border:1px solid #dbe5dd;box-shadow:inset 0 1px 0 #fff,0 28px 60px -45px #073a22;margin-top:40px}
-.hc-fan:before{content:'HASEEB CRAFTS / CREATIVE SERVICES';position:absolute;left:28px;top:24px;color:#315c43;font:700 12px/1.5 Manrope,sans-serif;letter-spacing:.12em}
-.hc-fan:after{content:'';position:absolute;left:22%;right:22%;bottom:90px;height:30px;background:#173e2b;opacity:.15;border-radius:50%;filter:blur(18px);z-index:-1}
-.hc-fan .ci{top:45%;width:250px;height:330px;border-radius:16px;transform-origin:50% 100%;border:1px solid #ffffff9e;background:#09251a;box-shadow:0 2px 3px #081d1826,0 16px 28px -14px #082a1c88;transition:transform 1.25s cubic-bezier(.22,.8,.22,1),opacity .75s,box-shadow .5s;will-change:auto}
-.hc-fan .ci .ph{position:absolute;inset:0}.hc-fan .ci .ph img{width:100%;height:100%;aspect-ratio:auto;object-fit:cover;filter:saturate(.85)}
-.hc-fan .ci .cb{position:absolute;inset:0;padding:20px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(180deg,rgba(5,25,16,.08) 20%,rgba(5,25,16,.92) 100%)}
-.hc-fan .ci .cb:before{content:'HC / SERVICES';position:absolute;top:18px;left:20px;font:800 12px/1.5 Manrope,sans-serif;letter-spacing:.15em;color:#fff;text-shadow:0 1px 8px #000}
-.hc-fan .ci .cb h3{color:#fff;font-size:21px;line-height:1.15;margin:0 0 10px;letter-spacing:-.025em}.hc-fan .ci .cb p{color:#d4e2d9;font-size:14px;line-height:1.45;margin:0 0 14px}
-.hc-fan .ci .rw{gap:7px;flex-wrap:wrap}.hc-fan .ci .cbtn{font-size:12px;min-height:38px;padding:9px 10px;color:#fff;border-color:#ffffff80;background:#ffffff0d}.hc-fan .ci .cbtn.fill{background:#b8f7cf;color:#123523;border-color:#b8f7cf}
-.hc-fan .ci:not(.on) .rw{visibility:hidden}.hc-fan .ci.on{box-shadow:0 2px 4px #041d1733,0 26px 45px -15px #082a1ca6}
-.hc-fan.hc-folded .ci{transform:translate(-50%,-50%) rotate(-8deg) translateY(-30px) rotateY(14deg)!important}
-.hc-fan .nv{top:auto;bottom:24px;transform:none;background:#fff;color:#123d28;border:1px solid #b7cebf;box-shadow:0 5px 16px #15382212}.hc-fan .nv-l{left:calc(50% - 62px)}.hc-fan .nv-r{right:calc(50% - 62px)}
+/* Physical card fan inspired by the supplied motion reference; Services only. */
+.hc-fan{height:720px;isolation:isolate;perspective:1800px;overflow:hidden;border-radius:32px;background:radial-gradient(ellipse at 50% 52%,#fafffb 0,#edf4ef 55%,#dfeae2 100%);border:1px solid #d5e2d8;box-shadow:inset 0 1px 0 #fff,0 32px 65px -48px #073a2255;margin-top:40px;contain:layout paint}
+.hc-fan:before{content:'HASEEB CRAFTS / CREATIVE SERVICES';position:absolute;left:28px;top:25px;color:#315c43;font:700 .875rem/1.5 Manrope,sans-serif;letter-spacing:.1em;z-index:25}
+.hc-fan:after{content:'';position:absolute;width:560px;height:560px;left:50%;top:485px;transform:translateX(-50%);border:1px solid #c6d5ca;border-radius:50%;background:repeating-radial-gradient(circle at center,transparent 0 35px,#b9cdbf45 36px 37px,transparent 38px 58px),linear-gradient(145deg,#fff,#d6e3da);box-shadow:inset 0 4px 12px #fff,0 -16px 40px #254d3520;z-index:0;pointer-events:none}
+.hc-fan .ci{top:36%;width:250px;height:340px;border-radius:18px;transform-origin:50% 90%;border:1px solid #ffffffb8;background:#102b1e;box-shadow:0 2px 3px #081d1826,0 18px 30px -12px #082a1c70;transition:transform 1.05s cubic-bezier(.22,.8,.22,1),opacity .65s,box-shadow .5s;will-change:auto;backface-visibility:hidden}
+.hc-fan .ci .ph{position:absolute;inset:0}.hc-fan .ci .ph img{width:100%;height:100%;aspect-ratio:auto;object-fit:cover;filter:saturate(.88);transform:scale(1.01)}
+.hc-fan .ci.on .ph img{transform:scale(1.04)}
+.hc-fan .ci .cb{position:absolute;inset:0;padding:20px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(180deg,#05191008 22%,#05191070 49%,#051910f5 100%)}
+.hc-fan .ci .cb:before{content:'HC / SERVICES';position:absolute;top:18px;left:20px;font:800 .875rem/1.5 Manrope,sans-serif;letter-spacing:.12em;color:#fff;text-shadow:0 1px 8px #000}
+.hc-fan .ci .cb h3{color:#fff;font-size:1.4rem;line-height:1.15;margin:0 0 10px;letter-spacing:-.025em}.hc-fan .ci .cb p{color:#e2ece5;font-size:1rem;line-height:1.45;margin:0 0 16px}
+.hc-fan .ci .rw{gap:7px;flex-wrap:wrap}.hc-fan .ci .cbtn{font-size:.875rem;min-height:42px;padding:9px 10px;color:#fff;border-color:#ffffff80;background:#ffffff0d}.hc-fan .ci .cbtn.fill{background:#b8f7cf;color:#123523;border-color:#b8f7cf}
+.hc-fan .ci:not(.on) .rw{visibility:hidden}.hc-fan .ci.on{box-shadow:0 2px 4px #041d1733,0 30px 45px -15px #082a1c90}
+.hc-fan.hc-folded .ci{transform:translate(-50%,-50%) translateY(35px) rotate(-7deg) rotateY(8deg)!important}
+.hc-fan .nv{top:auto;bottom:24px;transform:none;background:#fff;color:#123d28;border:1px solid #b7cebf;box-shadow:0 5px 16px #15382212;z-index:30}.hc-fan .nv-l{left:calc(50% - 62px)}.hc-fan .nv-r{right:calc(50% - 62px)}
 .hc-fan .ci:focus-within{outline:3px solid #72d999;outline-offset:4px}
-@media(max-width:760px){.hc-fan{height:570px;margin-inline:-12px;border-radius:24px}.hc-fan .ci{width:205px;height:285px;top:44%}.hc-fan .ci .cb{padding:16px}.hc-fan .ci .cb h3{font-size:19px}.hc-fan .ci .cb p{font-size:13px;margin-bottom:10px}.hc-fan:before{left:18px;top:18px;font-size:10px}.hc-fan .ci .cbtn{padding:8px;font-size:11px}.hc-fan .ci .cb:before{left:16px}.hc-fan:after{bottom:80px}}
-@media(prefers-reduced-motion:reduce){.hc-fan .ci{transition:none}}
+@media(max-width:760px){.hc-fan{height:620px;margin-inline:-12px;border-radius:24px}.hc-fan .ci{width:205px;height:310px;top:36%}.hc-fan .ci .cb{padding:16px}.hc-fan .ci .cb h3{font-size:1.2rem}.hc-fan .ci .cb p{font-size:1rem;margin-bottom:12px}.hc-fan:before{left:18px;top:18px;max-width:85%;font-size:.875rem}.hc-fan .ci .cbtn{padding:8px;font-size:.875rem}.hc-fan .ci .cb:before{left:16px}.hc-fan:after{top:430px;width:400px;height:400px}}
+@media(prefers-reduced-motion:reduce){.hc-fan .ci,.hc-fan .ci .ph img{transition:none}}
