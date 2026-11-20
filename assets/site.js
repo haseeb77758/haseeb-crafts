@@ -3,12 +3,12 @@
    Put files in a folder named "videos" next to this HTML:
    - videos/showreel.mp4 appears on the Motion page when the file exists
    - videos/<project-slug>.mp4 (e.g. videos/haseeb-co.mp4) appears as a "Video walkthrough" on that project page */
-window.HC_VIDEOS = { client: [], user: [], showreel: "/haseeb-crafts/videos/showreel.mp4" };
+window.HC_VIDEOS = { client: [], user: [], showreel: "/videos/showreel.mp4" };
 
 
 (function(){
  'use strict';
- var base='/haseeb-crafts/', current=document.querySelector('.view');
+ var base='/', current=document.querySelector('.view');
  function legacy(){if(location.hash.indexOf('#/')===0){location.replace(base+location.hash.slice(2));return true;}return false;}
  if(legacy())return;window.addEventListener('hashchange',legacy);
  window.HC_currentView=function(){return current;};
@@ -430,8 +430,8 @@ window.HC_VIDEOS = { client: [], user: [], showreel: "/haseeb-crafts/videos/show
     cur = (i + n) % n; lay();
   }
   function focusServiceFromLink() {
-    var hash = '/haseeb-crafts/services/' + location.search;
-    if (!hash.startsWith('/haseeb-crafts/services/?')) return;
+    var hash = '/services/' + location.search;
+    if (!hash.startsWith('/services/?')) return;
     var match = hash.match(/[?&]card=(\d+)(?:&|$)/);
     if (!match) return;
     var index = Number(match[1]);
@@ -759,7 +759,7 @@ window.HC_VIDEOS = { client: [], user: [], showreel: "/haseeb-crafts/videos/show
     $$('[data-render]', root).forEach(function (g) { if (g.getAttribute('data-done')) return; g.setAttribute('data-done', '1'); (CFG[g.getAttribute('data-render')] || []).forEach(function (v) { g.appendChild(card(v, g.getAttribute('data-render'))); }); });
     $$('.vsingle', root).forEach(function (w) {
       if (w.getAttribute('data-done')) return; w.setAttribute('data-done', '1');
-      var file = w.getAttribute('data-file') === 'showreel' ? (CFG.showreel || '/haseeb-crafts/videos/showreel.mp4') : w.getAttribute('data-file'), f = $('.vframe', w);
+      var file = w.getAttribute('data-file') === 'showreel' ? (CFG.showreel || '/videos/showreel.mp4') : w.getAttribute('data-file'), f = $('.vframe', w);
       var v = mount(f, file, w.getAttribute('data-title'), function () { w.hidden = true; });
       v.addEventListener('loadedmetadata', function () { w.hidden = false; });
     });
@@ -783,7 +783,7 @@ if(!document.documentElement.classList.contains('ready')&&window.HC_hydrateAll){
 const stage=document.getElementById('hc-sc-stage'),ring=document.getElementById('hc-sc-ring');
 if(!stage||!ring)return;
 const cards=Array.from(ring.querySelectorAll('[data-hc-card]')),n=cards.length;
-const data=[{"name":"Website Development","description":"Responsive websites, landing pages and modern digital experiences.","category":"Web Design","details":"/haseeb-crafts/services/website-development/","contact":"website-development"},{"name":"WordPress & Elementor","description":"Editable websites, custom Elementor layouts and WordPress setups.","category":"WordPress","details":"/haseeb-crafts/services/wordpress-elementor/","contact":"wordpress-elementor"},{"name":"Motion Graphics","description":"Cinematic animated promos, typography, explainers and branded visuals.","category":"Motion Design","details":"/haseeb-crafts/services/motion-graphics/","contact":"motion-graphics"},{"name":"Video Editing","description":"Polished edits, motion titles, captions and social-first videos.","category":"Video Production","details":"/haseeb-crafts/services/video-editing/","contact":"video-editing"},{"name":"Branding & Identity","description":"Memorable logos, visual identities, posters and graphic design.","category":"Brand Design","details":"/haseeb-crafts/services/branding-identity/","contact":"branding-identity"},{"name":"Social Media Design","description":"Content creatives, campaign visuals, reels covers and templates.","category":"Social Creative","details":"/haseeb-crafts/services/social-media-design/","contact":"social-media-design"},{"name":"Chrome Extensions","description":"Custom browser tools to simplify tasks and improve workflows.","category":"Browser Tools","details":"/haseeb-crafts/services/?to=services&card=6","contact":"chrome-extensions"},{"name":"Web Apps & Dashboards","description":"Interactive web applications, admin panels and tailored interfaces.","category":"Applications","details":"/haseeb-crafts/services/?to=services&card=7","contact":"web-apps"},{"name":"AI Chatbots & Agents","description":"Chat interfaces, AI assistants and voice-driven workflow concepts.","category":"AI Solutions","details":"/haseeb-crafts/services/?to=services&card=8","contact":"ai-assistants"},{"name":"Desktop Software","description":"Windows utilities, productive desktop tools and app concepts.","category":"Desktop Apps","details":"/haseeb-crafts/services/?to=services&card=9","contact":"desktop-software"},{"name":"Automation & Integrations","description":"Connect websites, forms, spreadsheets, alerts and business workflows.","category":"Automation","details":"/haseeb-crafts/services/?to=services&card=10","contact":"automation"},{"name":"E-commerce & WooCommerce","description":"Online stores, product experiences and WooCommerce solutions.","category":"E-commerce","details":"/haseeb-crafts/services/?to=services&card=11","contact":"ecommerce"}];
+const data=[{"name":"Website Development","description":"Responsive websites, landing pages and modern digital experiences.","category":"Web Design","details":"/services/website-development/","contact":"website-development"},{"name":"WordPress & Elementor","description":"Editable websites, custom Elementor layouts and WordPress setups.","category":"WordPress","details":"/services/wordpress-elementor/","contact":"wordpress-elementor"},{"name":"Motion Graphics","description":"Cinematic animated promos, typography, explainers and branded visuals.","category":"Motion Design","details":"/services/motion-graphics/","contact":"motion-graphics"},{"name":"Video Editing","description":"Polished edits, motion titles, captions and social-first videos.","category":"Video Production","details":"/services/video-editing/","contact":"video-editing"},{"name":"Branding & Identity","description":"Memorable logos, visual identities, posters and graphic design.","category":"Brand Design","details":"/services/branding-identity/","contact":"branding-identity"},{"name":"Social Media Design","description":"Content creatives, campaign visuals, reels covers and templates.","category":"Social Creative","details":"/services/social-media-design/","contact":"social-media-design"},{"name":"Chrome Extensions","description":"Custom browser tools to simplify tasks and improve workflows.","category":"Browser Tools","details":"/services/?to=services&card=6","contact":"chrome-extensions"},{"name":"Web Apps & Dashboards","description":"Interactive web applications, admin panels and tailored interfaces.","category":"Applications","details":"/services/?to=services&card=7","contact":"web-apps"},{"name":"AI Chatbots & Agents","description":"Chat interfaces, AI assistants and voice-driven workflow concepts.","category":"AI Solutions","details":"/services/?to=services&card=8","contact":"ai-assistants"},{"name":"Desktop Software","description":"Windows utilities, productive desktop tools and app concepts.","category":"Desktop Apps","details":"/services/?to=services&card=9","contact":"desktop-software"},{"name":"Automation & Integrations","description":"Connect websites, forms, spreadsheets, alerts and business workflows.","category":"Automation","details":"/services/?to=services&card=10","contact":"automation"},{"name":"E-commerce & WooCommerce","description":"Online stores, product experiences and WooCommerce solutions.","category":"E-commerce","details":"/services/?to=services&card=11","contact":"ecommerce"}];
 const chip=document.getElementById('hc-sc-category'),ttl=document.getElementById('hc-sc-title'),txt=document.getElementById('hc-sc-desc'),dotsEl=document.getElementById('hc-sc-dots');
 const more=document.getElementById('hc-sc-more'),discuss=document.getElementById('hc-sc-discuss');
 const c=.75;
@@ -809,7 +809,7 @@ function render(){
  });
  setActive(((Math.round(pos)%n)+n)%n)
 }
-function setActive(i){if(i===cur)return;cur=i;const d=data[i];chip.textContent=d.category;ttl.textContent=d.name;txt.textContent=d.description;more.href=d.details;discuss.href='/haseeb-crafts/contact/?service='+encodeURIComponent(d.contact)+'&to=start-project';dots.forEach((b,j)=>b.classList.toggle('on',j===i))}
+function setActive(i){if(i===cur)return;cur=i;const d=data[i];chip.textContent=d.category;ttl.textContent=d.name;txt.textContent=d.description;more.href=d.details;discuss.href='/contact/?service='+encodeURIComponent(d.contact)+'&to=start-project';dots.forEach((b,j)=>b.classList.toggle('on',j===i))}
 function tick(){if(!drag){pos+=(target-pos)*.11;if(Math.abs(target-pos)<.001)pos=target}render();if(drag||pos!==target)requestAnimationFrame(tick);else run=false}
 function kick(){if(!run){run=true;requestAnimationFrame(tick)}}
 function step(d){idle=Date.now();target=Math.round(target)+d;kick()}

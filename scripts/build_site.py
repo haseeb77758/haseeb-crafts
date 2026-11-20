@@ -7,8 +7,8 @@ from lxml import html, etree
 import json
 
 ROOT=Path(__file__).resolve().parents[1]
-BASE='/haseeb-crafts/'
-URL='https://haseeb77758.github.io'+BASE
+BASE='/'
+URL='https://haseebcrafts.com'+BASE
 VERIFY='952w3cYsItd12V8_mYMvQMhhqZai5DPtdN3kej0U_p8'
 META={
  '/':('Haseeb Crafts | Abdul Haseeb — Web Design & Creative Studio','Haseeb Crafts is Abdul Haseeb\'s creative studio in Pakistan for website development, WordPress, web apps, motion graphics, video editing and digital branding.'),

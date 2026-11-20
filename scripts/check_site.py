@@ -4,8 +4,8 @@ from urllib.parse import urlsplit,unquote
 from lxml import html,etree
 import json
 ROOT=Path(__file__).resolve().parents[1]
-BASE='/haseeb-crafts/'
-ORIGIN='https://haseeb77758.github.io'
+BASE='/'
+ORIGIN='https://haseebcrafts.com'
 ns={'s':'http://www.sitemaps.org/schemas/sitemap/0.9'}
 urls=etree.parse(str(ROOT/'sitemap.xml')).xpath('//s:loc/text()',namespaces=ns)
 assert len(urls)==22 and len(set(urls))==22
@@ -29,7 +29,7 @@ for url in urls:
   for key in ['src','href']:
    link=el.get(key,'');p=urlsplit(link).path
    assert not link.startswith('#/'),(file,link)
-   if p.startswith(BASE):
+   if p.startswith(BASE) and (not urlsplit(link).netloc or urlsplit(link).netloc == urlsplit(ORIGIN).netloc):
     target=ROOT/unquote(p.removeprefix(BASE));target=target/'index.html' if p.endswith('/') else target
     assert target.exists(),(file,link)
  assert not doc.xpath('//img[not(@alt)]'),file
