@@ -986,3 +986,13 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
 .hd-nav .hc-desktop-live a{color:#137a47!important;font-weight:700!important;white-space:nowrap}
 @media(max-width:980px){#menu nav ul>li.hc-menu-live{display:list-item!important;visibility:visible!important;opacity:1!important}}
 @media(min-width:981px){.hd-nav .hc-desktop-live{display:list-item!important}}
+
+
+/* Fast initial content and accessible carousel controls. */
+.h3-h1 .wd{transform:none;transition:none}
+.hc-sc-dots button{width:24px;height:32px;min-height:32px;background:transparent;position:relative;opacity:1;flex:none}
+.hc-sc-dots button::before{content:"";position:absolute;width:8px;height:8px;left:8px;top:12px;border-radius:8px;background:#627969}
+.hc-sc-dots button.on{width:24px;background:transparent}
+.hc-sc-dots button.on::before{background:#245a39;width:20px;left:2px}
+.hc-sc-heading h2 em{color:#477431}
+@media(hover:none),(pointer:coarse){#smoke{display:none}}
