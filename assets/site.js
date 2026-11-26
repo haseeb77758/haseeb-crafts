@@ -512,7 +512,7 @@ window.HC_VIDEOS = { client: [], user: [], showreel: "/videos/showreel.mp4" };
   'use strict';
   var $ = function (s, c) { return (c || document).querySelector(s); }, $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function vis(el) { return !!el && el.offsetParent !== null; }
+  function vis(el) { return !!el && !el.closest("[hidden]"); }
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
 
   /* ---------- header: bar at top, floating pill after scrolling, full-screen menu ---------- */
@@ -665,9 +665,9 @@ window.HC_VIDEOS = { client: [], user: [], showreel: "/videos/showreel.mp4" };
 
   /* ---------- statement: words fill in as you scroll ---------- */
   var st = $('.h3-st'), words = st ? $$('.sw', st) : [];
-  function stUpdate() {
+  function stUpdate(rect) {
     if (!st || !vis(st)) return; if (reduce) { words.forEach(function (w) { w.style.opacity = 1; }); return; }
-    var r = st.getBoundingClientRect(), run = r.height - window.innerHeight, p = run > 0 ? clamp(-r.top / run, 0, 1) : 1, n = words.length;
+    var r = rect || st.getBoundingClientRect(), run = r.height - window.innerHeight, p = run > 0 ? clamp(-r.top / run, 0, 1) : 1, n = words.length;
     words.forEach(function (w, i) { var t = clamp((p * 1.05 - i / n * .85 - .02) / (2.2 / n), 0, 1); w.style.opacity = (.62 + .38 * t).toFixed(3); });
   }
 
@@ -684,8 +684,8 @@ window.HC_VIDEOS = { client: [], user: [], showreel: "/videos/showreel.mp4" };
   function vSync() { if (!vReady) return; if (vVisible && !userPaused && !reduce && !document.hidden) { var p = vid.play(); if (p && p.catch) p.catch(function () {}); } else vid.pause(); }
   if (vbtn) vbtn.addEventListener('click', function () { if (vid.paused) { userPaused = false; var p = vid.play(); if (p && p.catch) p.catch(function () {}); } else { userPaused = true; vid.pause(); } });
   if ('IntersectionObserver' in window && vf) new IntersectionObserver(function (e) { vVisible = e[0].isIntersecting; if (vVisible) vInitNow(); vSync(); }, { threshold: .35 }).observe(vf);
-  function inUpdate() {
-    if (!inn || !vf || !vis(inn)) return; var r = inn.getBoundingClientRect(), run = r.height - window.innerHeight, p = run > 0 ? clamp(-r.top / run * 1.3, 0, 1) : 1;
+  function inUpdate(rect) {
+    if (!inn || !vf || !vis(inn)) return; var r = rect || inn.getBoundingClientRect(), run = r.height - window.innerHeight, p = run > 0 ? clamp(-r.top / run * 1.3, 0, 1) : 1;
     var e = 1 - Math.pow(1 - p, 2.2), maxW = Math.min(1180, window.innerWidth - 32), minW = Math.min(340, window.innerWidth * .72);
     vf.style.width = (reduce ? maxW : minW + (maxW - minW) * e).toFixed(1) + 'px'; vf.style.borderRadius = (18 - 6 * e).toFixed(1) + 'px'; if (lab) lab.style.opacity = (1 - clamp(p * 2.4, 0, 1)).toFixed(2);
     if (r.top < window.innerHeight * 1.6 && r.bottom > -200) vInitNow();
@@ -694,12 +694,12 @@ window.HC_VIDEOS = { client: [], user: [], showreel: "/videos/showreel.mp4" };
   /* ---------- portfolio: vertical scroll drives a horizontal track (native swipe on phones) ---------- */
   var wk = $('.h3-wk'), tr = wk ? $('.h3-wk-t', wk) : null;
   function wkLayout() {
-    if (!wk || !vis(wk)) return; var native = window.innerWidth < 900 || reduce; wk.classList.toggle('native', native);
+    if (!wk || !vis(wk)) return; var native = window.innerWidth < 900 || reduce; if (wk.classList.contains('native') !== native) { wk.classList.toggle('native', native); requestAnimationFrame(wkLayout); return; }
     if (native) { wk.style.height = ''; tr.style.transform = ''; return; }
-    var over = Math.max(0, tr.scrollWidth - window.innerWidth + 40); wk.style.height = (window.innerHeight + over) + 'px'; wk.setAttribute('data-over', over); wkMove();
+    var over = Math.max(0, tr.scrollWidth - window.innerWidth + 40); wk.style.height = (window.innerHeight + over) + 'px'; wk.setAttribute('data-over', over); req();
   }
-  function wkMove() {
-    if (!wk || !vis(wk) || wk.classList.contains('native')) return; var over = +wk.getAttribute('data-over') || 0, r = wk.getBoundingClientRect();
+  function wkMove(rect) {
+    if (!wk || !vis(wk) || wk.classList.contains('native')) return; var over = +wk.getAttribute('data-over') || 0, r = rect || wk.getBoundingClientRect();
     tr.style.transform = 'translate3d(' + (-clamp(-r.top / (over || 1), 0, 1) * over).toFixed(1) + 'px,0,0)';
   }
 
@@ -713,13 +713,20 @@ window.HC_VIDEOS = { client: [], user: [], showreel: "/videos/showreel.mp4" };
 
   /* ---------- one rAF-throttled updater ---------- */
   var tk = 0;
-  function all() { tk = 0; scrolled(); stUpdate(); inUpdate(); wkMove(); }
+  function all() {
+    tk = 0;
+    // Measure first; apply styles afterwards to avoid synchronous layout flushes.
+    var sr = vis(st) ? st.getBoundingClientRect() : null;
+    var ir = vis(inn) ? inn.getBoundingClientRect() : null;
+    var wr = vis(wk) ? wk.getBoundingClientRect() : null;
+    scrolled(); stUpdate(sr); inUpdate(ir); wkMove(wr);
+  }
   function req() { if (!tk) tk = requestAnimationFrame(all); }
   window.addEventListener('scroll', req, { passive: true });
   window.addEventListener('resize', function () { wkLayout(); req(); });
   document.addEventListener('visibilitychange', vSync);
-  wkLayout(); all();
-  window.addEventListener('load', function () { wkLayout(); all(); });
+  wkLayout(); req();
+  window.addEventListener('load', function () { wkLayout(); req(); });
 })();
 
 
@@ -789,8 +796,8 @@ const more=document.getElementById('hc-sc-more'),discuss=document.getElementById
 const c=.75;
 let W,w,h,R,f,G,T=[0],pos=0,target=0,drag=null,run=false,cur=-1,hover=false,inView=false,moved=0,idle=Date.now()-10000,snapT;
 const dots=data.map((d,j)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',d.name);b.onclick=()=>{idle=Date.now();let o=((j-Math.round(pos))%n+n)%n;if(o>n/2)o-=n;target=Math.round(pos)+o;kick()};dotsEl.appendChild(b);return b});
-function solve(){
- W=stage.clientWidth;if(!W)return;
+function solve(width){
+ const nextWidth=typeof width==='number'?width:stage.clientWidth;if(!nextWidth||nextWidth===W)return;W=nextWidth;
  w=Math.max(104,Math.min(210,W*.25));h=w*1.42;R=w*2.6;f=R*(1+c);G=Math.max(8,Math.min(20,w*.1));
  const hw=w/2,dp=(t,s)=>R*(c+Math.cos(t))+s*hw*Math.sin(t);
  const xr=t=>f*(R*Math.sin(t)+hw*Math.cos(t))/dp(t,-1);
@@ -825,8 +832,9 @@ stage.addEventListener('wheel',e=>{if(Math.abs(e.deltaX)<=Math.abs(e.deltaY))ret
 stage.addEventListener('mouseenter',()=>{if(matchMedia('(hover:hover)').matches)hover=true});stage.addEventListener('mouseleave',()=>hover=false);
 const still=matchMedia('(prefers-reduced-motion:reduce)');
 setInterval(()=>{if(inView&&!drag&&!hover&&!still.matches&&!document.hidden&&Date.now()-idle>1700){target=Math.round(target)+1;kick()}},2600);
-if('ResizeObserver'in window)new ResizeObserver(solve).observe(stage);else addEventListener('resize',solve);
-solve();
+if('ResizeObserver'in window)new ResizeObserver(entries=>solve(entries[0].contentRect.width)).observe(stage);else addEventListener('resize',()=>solve());
+if(!('ResizeObserver' in window))requestAnimationFrame(()=>solve());
 if('IntersectionObserver' in window)new IntersectionObserver(entries=>{inView=entries[0].isIntersecting},{rootMargin:'100px'}).observe(stage);else inView=true;
 })();
+
 
