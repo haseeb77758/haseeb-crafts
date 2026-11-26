@@ -996,3 +996,5 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
 .hc-sc-dots button.on::before{background:#245a39;width:20px;left:2px}
 .hc-sc-heading h2 em{color:#477431}
 @media(hover:none),(pointer:coarse){#smoke{display:none}}
+
+.h3-wk .k3{color:#c4d6ca}
