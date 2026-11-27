@@ -1,27 +1,28 @@
-/* Haseeb Crafts: scattered questions settle into a native FAQ accordion. */
+/* Lightweight scroll story: blank wall, headline, flying questions, usable list. */
 (()=>{'use strict';
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
-const style=document.createElement('style');style.textContent=`
-.hc-faq-motion{position:relative;isolation:isolate;overflow:visible!important;padding-top:35px;padding-bottom:25px}
-.hc-faq-motion>details{position:relative!important;background:#fff!important;border:1px solid #dce7df!important;border-radius:16px!important;margin:0 0 14px!important;box-shadow:0 7px 24px #193d2b08;transform-origin:50% 50%;transition:box-shadow .2s;min-width:0;opacity:1!important}
-.hc-faq-motion>details:nth-child(even){background:#f1f6f0!important}
-.hc-faq-motion>details>summary{display:flex!important;align-items:center;justify-content:space-between;gap:18px;padding:20px 24px!important;list-style:none!important;cursor:pointer;color:#244d36!important;font:650 clamp(14px,1.4vw,18px)/1.5 Manrope,system-ui,sans-serif!important;text-align:left!important}
-.hc-faq-motion>details>summary::-webkit-details-marker{display:none}
-.hc-faq-motion>details>summary:after{content:'+'!important;display:grid;place-items:center;flex:0 0 30px;width:30px;height:30px;background:#dcebd9!important;color:#285d3d!important;border-radius:50%;font:400 22px/1 system-ui}
+const css=document.createElement('style');css.textContent=`
+.hc-faq-motion{position:relative;min-width:0}
+.hc-faq-motion>details{background:#fff!important;border:1px solid #dce7df!important;border-radius:14px!important;margin:0 0 12px!important;box-shadow:0 5px 20px #193d2b08;position:relative}
+.hc-faq-motion>details:nth-child(even){background:#f0f5ef!important}
+.hc-faq-motion>details>summary{display:flex!important;align-items:center;justify-content:space-between;gap:18px;padding:20px 24px!important;list-style:none!important;cursor:pointer;color:#244d36!important;font:650 clamp(14px,1.4vw,18px)/1.5 Manrope,system-ui!important;text-align:left!important}
+.hc-faq-motion summary::-webkit-details-marker{display:none}
+.hc-faq-motion>details>summary:after{content:'+'!important;display:grid;place-items:center;flex:0 0 30px;height:30px;background:#dcebd9!important;color:#285d3d!important;border-radius:50%;font:400 22px system-ui}
 .hc-faq-motion>details[open]>summary:after{content:'−'!important}
-.hc-faq-motion>details[open]{background:#fff!important;box-shadow:0 10px 26px #193d2b10;z-index:10}
-.hc-faq-motion>details>summary:focus-visible{outline:3px solid #438455!important;outline-offset:4px}
 .hc-faq-motion>details>p,.hc-faq-motion>details>.ans{padding:0 24px 23px!important;margin:0!important;color:#586d60;font-size:15px;line-height:1.85}
-.hc-faq-motion>details>.ans p:last-child{margin-bottom:0}
-.hc-faq-motion>details:hover{box-shadow:0 10px 25px #193d2b14}
-@media(max-width:700px){.hc-faq-motion>details>summary{padding:17px!important}.hc-faq-motion>details>p,.hc-faq-motion>details>.ans{padding:0 17px 20px!important}.hc-faq-motion{padding-top:20px}}
-@media(prefers-reduced-motion:reduce){.hc-faq-motion>details{transform:none!important;transition:none!important}}
-`;document.head.append(style);
-const groups=[...new Set([...document.querySelectorAll('details')].filter(d=>d.querySelector('summary')&&d.closest('.faq,.faq-list,.fq3,[class*="faq"],[class*="fq"]')).map(d=>d.parentElement))];
-const states=groups.map(group=>{group.classList.add('hc-faq-motion');const items=[...group.children].filter(n=>n.tagName==='DETAILS');items.forEach(d=>{d.removeAttribute('name');d.addEventListener('toggle',()=>{if(d.open)settle(state)});d.querySelector('summary')?.addEventListener('pointerdown',()=>settle(state));d.querySelector('summary')?.addEventListener('focus',()=>settle(state))});const state={group,items,done:false};return state});
-function settle(s){s.done=true;s.items.forEach(d=>d.style.removeProperty('transform'))}
-let queued=false;
-function draw(){queued=false;const vh=innerHeight;states.forEach(s=>{if(s.done||reduced.matches){settle(s);return}const rect=s.group.getBoundingClientRect();if(rect.top>vh+200||rect.bottom<0)return;const progress=Math.max(0,Math.min(1,(vh*.96-rect.top)/(vh*.57)));if(progress>=1){settle(s);return}const ease=1-Math.pow(1-progress,3),amount=1-ease,mobile=innerWidth<700;s.items.forEach((d,i)=>{const side=i%2?-1:1;const x=side*Math.min(innerWidth*(mobile ? .11 : .18),mobile?42:180)*amount;const y=((i%3)-1)*(mobile?14:28)*amount;const angle=side*(4+(i%3)*2)*amount;d.style.transform='translate3d('+x+'px,'+y+'px,0) rotate('+angle+'deg)'})})}
-function schedule(){if(!queued){queued=true;requestAnimationFrame(draw)}}
-addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule,{passive:true});reduced.addEventListener('change',schedule);draw();
+.hc-faq-motion summary:focus-visible{outline:3px solid #438455;outline-offset:4px}
+.hc-faq-story{height:160vh;height:160svh;position:relative;margin-bottom:25px}
+.hc-faq-wall{height:80vh;height:80svh;position:sticky;top:12vh;overflow:hidden;contain:paint;border-radius:20px;background:#f4f7f2;isolation:isolate;display:grid;place-items:center}
+.hc-faq-wall:before,.hc-faq-wall:after{content:'';position:absolute;top:0;bottom:0;width:8%;z-index:3;pointer-events:none}.hc-faq-wall:before{left:0;background:linear-gradient(90deg,#f4f7f2,transparent)}.hc-faq-wall:after{right:0;background:linear-gradient(-90deg,#f4f7f2,transparent)}
+.hc-faq-story-title{position:absolute;left:10%;right:10%;top:35%;text-align:center;color:#101d15!important;font:800 clamp(30px,5vw,66px)/1.06 Manrope,system-ui!important;letter-spacing:-.05em;opacity:0;margin:0!important;pointer-events:none}
+.hc-faq-question{position:absolute;left:9%;width:82%;padding:12px 18px;background:#dce8dd;color:#234c35;border:1px solid #d0dfd1;border-radius:40px;font:650 clamp(11px,1.25vw,16px)/1.4 Manrope,system-ui;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0;box-shadow:0 5px 15px #173b2410;text-align:center;pointer-events:none;transform-origin:center}
+.hc-faq-question:nth-of-type(even){background:#e9f0e5;color:#3a6347}
+@media(max-width:700px){.hc-faq-story{height:140svh}.hc-faq-wall{height:72svh;top:14svh}.hc-faq-question{padding:11px 12px}.hc-faq-story-title{font-size:34px}.hc-faq-motion>details>summary{padding:17px!important}}
+@media(prefers-reduced-motion:reduce){.hc-faq-story{display:none!important}}
+`;document.head.append(css);
+const parents=[...new Set([...document.querySelectorAll('details')].filter(d=>d.querySelector('summary')&&d.closest('.faq,.faq-list,.fq3,[class*="faq"],[class*="fq"]')).map(d=>d.parentElement))];
+const states=parents.map(group=>{group.classList.add('hc-faq-motion');const items=[...group.children].filter(e=>e.tagName==='DETAILS');const story=document.createElement('div');story.className='hc-faq-story';story.setAttribute('aria-hidden','true');const wall=document.createElement('div');wall.className='hc-faq-wall';const title=document.createElement('p');title.className='hc-faq-story-title';title.innerHTML='You asked.<br>We answered.';wall.append(title);const chips=items.slice(0,6).map(d=>{const chip=document.createElement('span');chip.className='hc-faq-question';chip.textContent=d.querySelector('summary').textContent;wall.append(chip);return chip});story.append(wall);group.prepend(story);return{group,story,wall,title,chips,last:-1}});
+const clamp=x=>Math.max(0,Math.min(1,x));let queued=false;
+function draw(){queued=false;const vh=innerHeight;states.forEach(s=>{if(reduced.matches){s.story.hidden=true;return}s.story.hidden=false;const r=s.story.getBoundingClientRect();if(r.bottom<0||r.top>vh)return;const travel=Math.max(1,r.height-vh*.42);const p=clamp((vh*.68-r.top)/travel);if(Math.abs(p-s.last)<.002)return;s.last=p;const titleIn=clamp((p-.07)/.13),titleOut=1-clamp((p-.48)/.2);s.title.style.opacity=titleIn*titleOut;s.title.style.transform='translateY('+((1-titleIn)*22)+'px)';s.chips.forEach((chip,i)=>{const start=.23+i*.025;const enter=clamp((p-start)/.23);const join=clamp((p-.60)/.27);const side=i%2?-1:1;const x=side*(1-enter)*(s.wall.clientWidth+100);const angle=side*(7+i%3*3)*(1-join);const row=18+i*(64/Math.max(1,s.chips.length-1));const scattered=row+(i%2?5:-5);const y=scattered+(row-scattered)*join;chip.style.top=y+'%';chip.style.opacity=clamp(enter*3)*(1-clamp((p-.93)/.07));chip.style.transform='translateX('+x+'px) rotate('+angle+'deg)';chip.style.borderRadius=(40-28*join)+'px'})})}
+function schedule(){if(!queued){queued=true;requestAnimationFrame(draw)}}addEventListener('scroll',schedule,{passive:true});addEventListener('resize',()=>{states.forEach(s=>s.last=-1);schedule()},{passive:true});reduced.addEventListener('change',()=>{states.forEach(s=>s.last=-1);schedule()});draw();
 })();
